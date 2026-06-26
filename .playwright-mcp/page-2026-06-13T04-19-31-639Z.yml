@@ -1,0 +1,520 @@
+- generic [ref=e3]:
+  - link "メインコンテンツにスキップ" [ref=e5] [cursor=pointer]:
+    - /url: "#main"
+  - generic [ref=e7]:
+    - banner [ref=e19]:
+      - generic [ref=e20]:
+        - navigation [ref=e21]:
+          - link "Booking.com" [ref=e25] [cursor=pointer]:
+            - /url: https://www.booking.com/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+            - img [ref=e26]
+          - generic [ref=e28]:
+            - button "料金の通貨：円" [ref=e30] [cursor=pointer]:
+              - generic [ref=e31]: JPY
+            - button "言語設定：日本語" [ref=e33] [cursor=pointer]
+            - link "カスタマーサポート" [ref=e38] [cursor=pointer]:
+              - /url: https://secure.booking.com/help.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593&source=header&src=profile_contact_cs
+              - img [ref=e41]
+            - link "宿泊施設を掲載する" [ref=e43] [cursor=pointer]:
+              - /url: https://join.booking.com/?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&lang=ja&sid=637cf7a579ee15f8ed83583df3b5c593&utm_medium=frontend&utm_source=topbar
+              - generic [ref=e44]: 宿泊施設を掲載する
+            - link "アカウントを登録します" [ref=e45] [cursor=pointer]:
+              - /url: https://account.booking.com/auth/oauth2?client_id=vO1Kblk7xX9tUn2cpZLS&redirect_uri=https%3A%2F%2Fsecure.booking.com%2Flogin.html%3Fop%3Doauth_return&response_type=code&lang=ja&aid=304142&bkng_action=index&prompt=signin&state=UoEDsepxUMumb-o2bC8RReTyCWlwhkNdy1AkvsuoCwsafE4f4DppJQeHy3Y9qDbKkmMWdeia7sYGF3XARZ8logJYXfdhXxofWy13CW2L8pXfw-zlNYjIlcxn3gidRg1nWPVlJTM5l9EvRUMBjyP5zRsqanoVUAimDtievlhr7C-ecqt-WjeeQNIKL4lxkA84GWtKbPWgCzCAX_0mYhn2dh_nX2OTn5GR3KHlv2lSWoa625CItnQmHNbLD9j-wXboznBFHDuiX2lQ2Xb6k_hSuLNh8J0CPzl56Q8xKLGvJfhH7p2QBjgdm1YNQ0l80Eg0OH02e24MMvMMtPaM2huwPZMBQ7ky7RI-kKqgonesOlqeHEFzhJDjLZr5hobllgIlrcvABXuLm364Ti2GMqorXt3tLDI_rXsQKdvNvd9C6hS3A1_OKjI2woYki9UbCIczvVZk2HVmUkTL8yAlR9ybxCjytCjSoMx6TfqTWCwI6JNv_xhUi91Hf6VqOCFgD99sKaLKtg%3D%3D*eyJpZCI6InRyYXZlbGxlcl9oZWFkZXIifQ%3D%3D
+              - generic [ref=e46]: 登録
+            - link "ログイン" [ref=e48] [cursor=pointer]:
+              - /url: https://account.booking.com/auth/oauth2?client_id=vO1Kblk7xX9tUn2cpZLS&redirect_uri=https%3A%2F%2Fsecure.booking.com%2Flogin.html%3Fop%3Doauth_return&response_type=code&lang=ja&aid=304142&bkng_action=index&prompt=signin&state=UoEDsepxUMumb-o2bC8RReTyCWlwhkNdy1AkvsuoCwsafE4f4DppJQeHy3Y9qDbKkmMWdeia7sYGF3XARZ8logJYXfdhXxofWy13CW2L8pXfw-zlNYjIlcxn3gidRg1nWPVlJTM5l9EvRUMBjyP5zRsqanoVUAimDtievlhr7C-ecqt-WjeeQNIKL4lxkA84GWtKbPWgCzCAX_0mYhn2dh_nX2OTn5GR3KHlv2lSWoa625CItnQmHNbLD9j-wXboznBFHDuiX2lQ2Xb6k_hSuLNh8J0CPzl56Q8xKLGvJfhH7p2QBjgdm1YNQ0l80Eg0OH02e24MMvMMtPaM2huwPZMBQ7ky7RI-kKqgonesOlqeHEFzhJDjLZr5hobllgIlrcvABXuLm364Ti2GMqorXt3tLDI_rXsQKdvNvd9C6hS3A1_OKjI2woYki9UbCIczvVZk2HVmUkTL8yAlR9ybxCjytCjSoMx6TfqTWCwI6JNv_xhUi91Hf6VqOCFgD99sKaLKtg%3D%3D*eyJpZCI6InRyYXZlbGxlcl9oZWFkZXIifQ%3D%3D
+              - generic [ref=e49]: ログイン
+        - navigation "何をお探しですか？" [ref=e50]:
+          - menubar [ref=e52]:
+            - menuitem "宿" [ref=e53] [cursor=pointer]:
+              - generic [ref=e54]:
+                - img [ref=e56]
+                - generic [ref=e58]: 宿
+            - menuitem "フライト" [ref=e59] [cursor=pointer]:
+              - generic [ref=e60]:
+                - img [ref=e62]
+                - generic [ref=e64]: フライト
+            - menuitem "航空券＋ホテル" [ref=e65] [cursor=pointer]:
+              - generic [ref=e66]:
+                - img [ref=e68]
+                - generic [ref=e70]: 航空券＋ホテル
+            - menuitem "レンタカー" [ref=e71] [cursor=pointer]:
+              - generic [ref=e72]:
+                - img [ref=e74]
+                - generic [ref=e76]: レンタカー
+            - menuitem "旅ナカ体験" [ref=e77] [cursor=pointer]:
+              - generic [ref=e78]:
+                - img [ref=e80]
+                - generic [ref=e82]: 旅ナカ体験
+            - menuitem "空港発着タクシー" [ref=e83] [cursor=pointer]:
+              - generic [ref=e84]:
+                - img [ref=e86]
+                - generic [ref=e88]: 空港発着タクシー
+    - main [ref=e89]:
+      - generic [ref=e97]:
+        - generic [ref=e102]:
+          - generic [ref=e103]:
+            - heading "サマーセールでおトクに予約" [level=1] [ref=e105]:
+              - generic [ref=e106]: サマーセールでおトクに予約
+            - paragraph [ref=e107]: 憧れの旅を今こそ予約しよう
+            - link "航空機の窓から見える、夕日の空を飛ぶ航空機の翼とふわふわとした雲の風景。" [ref=e108] [cursor=pointer]:
+              - /url: https://www.booking.com/flights?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+              - generic [ref=e109]: フライトをおトクに予約
+          - img "航空機の窓から見える、夕日の空を飛ぶ航空機の翼とふわふわとした雲の風景。" [ref=e112]
+        - region "宿泊施設を検索" [ref=e116]:
+          - generic [ref=e117]:
+            - generic [ref=e123]:
+              - img [ref=e126]
+              - combobox "目的地" [ref=e128]
+            - button "チェックイン日 — チェックアウト日" [ref=e131] [cursor=pointer]:
+              - generic [ref=e132]:
+                - img [ref=e134]
+                - generic [ref=e136]: チェックイン日
+                - generic [ref=e137]: —
+                - generic [ref=e138]: チェックアウト日
+            - button "宿泊人数と部屋数。選択済みの内容：大人2名 · 子供0名 · 1部屋" [ref=e141] [cursor=pointer]:
+              - generic [ref=e142]:
+                - img [ref=e144]
+                - text: 大人2名 · 子供0名 · 1部屋
+              - img [ref=e147]
+            - button "検索" [ref=e150] [cursor=pointer]:
+              - generic [ref=e151]: 検索
+          - group [ref=e152]:
+            - generic [ref=e153]:
+              - checkbox "検索にフライトを追加する" [ref=e154]
+              - generic [ref=e155] [cursor=pointer]:
+                - img [ref=e158]
+                - generic [ref=e161]: 検索にフライトを追加する
+      - generic [ref=e166]:
+        - generic [ref=e172]:
+          - generic [ref=e174]: Booking.comの特長
+          - generic [ref=e175]:
+            - heading "予約は今すぐ、お支払いは宿泊施設で" [level=3] [ref=e177]
+            - paragraph [ref=e178]: ほとんどの客室がキャンセル無料
+          - generic [ref=e179]:
+            - heading "3億件以上のユーザーのクチコミ" [level=3] [ref=e181]
+            - paragraph [ref=e182]: 他の旅行者からの信頼できる情報を確認できます
+          - generic [ref=e183]:
+            - heading "世界各地の200万軒以上の宿泊施設" [level=3] [ref=e185]
+            - paragraph [ref=e186]: ホテル、ゲストハウス、アパートメントなどなど…
+          - generic [ref=e187]:
+            - heading "信頼性の高い24時間年中無休のカスタマーサービス" [level=3] [ref=e189]
+            - paragraph [ref=e190]: いつでもサポートを提供します
+        - generic [ref=e196]:
+          - generic [ref=e197]:
+            - heading "オファー" [level=2] [ref=e198]
+            - generic [ref=e199]: お勧めのプロモーション、セール情報、特別オファー
+          - generic [ref=e204]:
+            - generic [ref=e206]:
+              - generic [ref=e207]: HOLIDAYセールで旅行をお得に楽しみましょう
+              - heading "利用条件は一切ありません。純粋に旅行をお楽しみください。" [level=3] [ref=e208]
+              - generic [ref=e209]: 世界中の対象施設が15%以上OFFになります。予約して旅に出かけるだけです。
+              - link "対象施設が15%以上OFFになる特典で、次の旅をお得に予約しよう" [ref=e212] [cursor=pointer]:
+                - /url: https://www.booking.com/dealspage.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&campaign_id=getaway
+                - generic [ref=e213]: HOLIDAYセールでお得に予約
+            - img "ハワイのマウイ島のビーチの風景。晴れた日に海沿いで散歩したり、くつろいだりする旅行者たち。" [ref=e217]
+        - generic [ref=e250]:
+          - heading "旅した分だけおトクが広がる！" [level=2] [ref=e252]
+          - generic [ref=e257]:
+            - heading "ログインしておトクに予約しよう" [level=3] [ref=e258]
+            - generic [ref=e259]: 対象施設が10%以上OFF！目印は青いGeniusのラベルです
+            - generic [ref=e260]:
+              - link "ログイン" [ref=e261] [cursor=pointer]:
+                - /url: https://account.booking.com/auth/oauth2?client_id=vO1Kblk7xX9tUn2cpZLS&redirect_uri=https%3A%2F%2Fsecure.booking.com%2Flogin.html%3Fop%3Doauth_return&response_type=code&lang=ja&aid=304142&bkng_action=index&state=UoEDsepxUMumb-o2bC8RReTyCWlwhkNdy1AkvsuoCwsafE4f4DppJQeHy3Y9qDbKkmMWdeia7sYGF3XARZ8logJYXfdhXxofWy13CW2L8pXfw-zlNYjIlcxn3gidRg1nWPVlJTM5l9EvRUMBjyP5zRsqanoVUAimDtievlhr7C-ecqt-WjeeQNIKL4lxkA84GWtKbPWgCzCAX_0mYhn2dh_nX2OTn5GR3KHlv2lSWoa625CItnQmHNbLD9j-wXboznBFHDuiX2lQ2Xb6k_hSuLNh8J0CPzl56Q8xKLGvJfhH7p2QBjgdm1YNQ0l80Eg0OH02e24MMvMMtPaM2huwPZMBQ7ky7RI-kKqgonesOlqeHEFzhJDjLZr5hobllgIlrcvABXuLm364Ti2GMqorXt3tLDI_rXsQKdvNvd9C6hS3A1_OKjI2woYki9UbCIczvVZk2HVmUkTL8yAlR9ybxCjytCjSoMx6TfqTWCwI6JNv_xhUi91Hf6VqOCFgD99sKaLKtg%3D%3D*eyJpZCI6ImluZGV4In0%3D
+                - generic [ref=e262]: ログイン
+              - link "会員登録" [ref=e263] [cursor=pointer]:
+                - /url: https://account.booking.com/auth/oauth2?client_id=vO1Kblk7xX9tUn2cpZLS&redirect_uri=https%3A%2F%2Fsecure.booking.com%2Flogin.html%3Fop%3Doauth_return&response_type=code&lang=ja&aid=304142&bkng_action=index&state=UoEDsepxUMumb-o2bC8RReTyCWlwhkNdy1AkvsuoCwsafE4f4DppJQeHy3Y9qDbKkmMWdeia7sYGF3XARZ8logJYXfdhXxofWy13CW2L8pXfw-zlNYjIlcxn3gidRg1nWPVlJTM5l9EvRUMBjyP5zRsqanoVUAimDtievlhr7C-ecqt-WjeeQNIKL4lxkA84GWtKbPWgCzCAX_0mYhn2dh_nX2OTn5GR3KHlv2lSWoa625CItnQmHNbLD9j-wXboznBFHDuiX2lQ2Xb6k_hSuLNh8J0CPzl56Q8xKLGvJfhH7p2QBjgdm1YNQ0l80Eg0OH02e24MMvMMtPaM2huwPZMBQ7ky7RI-kKqgonesOlqeHEFzhJDjLZr5hobllgIlrcvABXuLm364Ti2GMqorXt3tLDI_rXsQKdvNvd9C6hS3A1_OKjI2woYki9UbCIczvVZk2HVmUkTL8yAlR9ybxCjytCjSoMx6TfqTWCwI6JNv_xhUi91Hf6VqOCFgD99sKaLKtg%3D%3D*eyJpZCI6ImluZGV4In0%3D
+                - generic [ref=e264]: 会員登録
+        - generic [ref=e272]:
+          - heading "日本からの旅行者に人気" [level=2] [ref=e274]
+          - navigation [ref=e275]:
+            - list [ref=e277]:
+              - listitem [ref=e278]:
+                - button "国内の都市" [ref=e279] [cursor=pointer]:
+                  - generic [ref=e281]: 国内の都市
+              - listitem [ref=e282]:
+                - button "海外の都市" [ref=e283] [cursor=pointer]:
+                  - generic [ref=e285]: 海外の都市
+              - listitem [ref=e286]:
+                - button "地域" [ref=e287] [cursor=pointer]:
+                  - generic [ref=e289]: 地域
+              - listitem [ref=e290]:
+                - button "国" [ref=e291] [cursor=pointer]:
+                  - generic [ref=e293]: 国
+              - listitem [ref=e294]:
+                - button "宿泊施設" [ref=e295] [cursor=pointer]:
+                  - generic [ref=e297]: 宿泊施設
+            - tabpanel "国内の都市" [ref=e299]:
+              - generic [ref=e300]:
+                - list [ref=e301]:
+                  - listitem [ref=e302]:
+                    - link "東京のホテル" [ref=e306] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/tokyo.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e307]: 東京のホテル
+                  - listitem [ref=e308]:
+                    - link "大阪市のホテル" [ref=e312] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/osaka.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e313]: 大阪市のホテル
+                  - listitem [ref=e314]:
+                    - link "名古屋市のホテル" [ref=e318] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/nagoya.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e319]: 名古屋市のホテル
+                  - listitem [ref=e320]:
+                    - link "広島市のホテル" [ref=e324] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/hiroshima.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e325]: 広島市のホテル
+                  - listitem [ref=e326]:
+                    - link "京都市のホテル" [ref=e330] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/kyoto.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e331]: 京都市のホテル
+                  - listitem [ref=e332]:
+                    - link "福岡市のホテル" [ref=e336] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/fukuoka-hakata.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e337]: 福岡市のホテル
+                  - listitem [ref=e338]:
+                    - link "那覇市のホテル" [ref=e342] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/naha.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e343]: 那覇市のホテル
+                  - listitem [ref=e344]:
+                    - link "横浜市のホテル" [ref=e348] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/yokohama.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e349]: 横浜市のホテル
+                  - listitem [ref=e350]:
+                    - link "鎌倉市のホテル" [ref=e354] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/kamakura.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e355]: 鎌倉市のホテル
+                  - listitem [ref=e356]:
+                    - link "鹿児島市のホテル" [ref=e360] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/kagoshima.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e361]: 鹿児島市のホテル
+                  - listitem [ref=e362]:
+                    - link "石垣島のホテル" [ref=e366] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/ishigaki-okinawa-ken.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e367]: 石垣島のホテル
+                  - listitem [ref=e368]:
+                    - link "松本市のホテル" [ref=e372] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/matsumoto.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e373]: 松本市のホテル
+                  - listitem [ref=e374]:
+                    - link "岡崎市のホテル" [ref=e378] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/okazaki.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e379]: 岡崎市のホテル
+                  - listitem [ref=e380]:
+                    - link "岡山市のホテル" [ref=e384] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/okayama.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e385]: 岡山市のホテル
+                  - listitem [ref=e386]:
+                    - link "福山市のホテル" [ref=e390] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/fukuyama.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e391]: 福山市のホテル
+                  - listitem [ref=e392]:
+                    - link "松山市のホテル" [ref=e396] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/matsuyama.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e397]: 松山市のホテル
+                  - listitem [ref=e398]:
+                    - link "八幡市のホテル" [ref=e402] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/yawata-jp-1.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e403]: 八幡市のホテル
+                  - listitem [ref=e404]:
+                    - link "高畠町のホテル" [ref=e408] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/takahata.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e409]: 高畠町のホテル
+                  - listitem [ref=e410]:
+                    - link "旭川市のホテル" [ref=e414] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/asahikawa.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e415]: 旭川市のホテル
+                  - listitem [ref=e416]:
+                    - link "武蔵野市のホテル" [ref=e420] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/musashino.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e421]: 武蔵野市のホテル
+                  - listitem [ref=e422]:
+                    - link "日南市のホテル" [ref=e426] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/nichinan.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e427]: 日南市のホテル
+                  - listitem [ref=e428]:
+                    - link "札幌市のホテル" [ref=e432] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/sapporo.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e433]: 札幌市のホテル
+                  - listitem [ref=e434]:
+                    - link "青森市のホテル" [ref=e438] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/aomori.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e439]: 青森市のホテル
+                  - listitem [ref=e440]:
+                    - link "高知市のホテル" [ref=e444] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/kochi.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e445]: 高知市のホテル
+                  - listitem [ref=e446]:
+                    - link "長崎市のホテル" [ref=e450] [cursor=pointer]:
+                      - /url: https://www.booking.com/city/jp/nagasaki.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                      - generic [ref=e451]: 長崎市のホテル
+                - button "さらに表示" [ref=e453] [cursor=pointer]:
+                  - img [ref=e456]
+                  - generic [ref=e458]: さらに表示
+    - contentinfo [ref=e470]:
+      - navigation "Quick links" [ref=e473]:
+        - list [ref=e474]:
+          - listitem [ref=e475]:
+            - link "国" [ref=e476] [cursor=pointer]:
+              - /url: https://www.booking.com/country.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e478]: 国
+            - text: .
+          - listitem [ref=e479]:
+            - link "地域" [ref=e480] [cursor=pointer]:
+              - /url: https://www.booking.com/region.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e482]: 地域
+            - text: .
+          - listitem [ref=e483]:
+            - link "都市" [ref=e484] [cursor=pointer]:
+              - /url: https://www.booking.com/city.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e486]: 都市
+            - text: .
+          - listitem [ref=e487]:
+            - link "地区" [ref=e488] [cursor=pointer]:
+              - /url: https://www.booking.com/district.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e490]: 地区
+            - text: .
+          - listitem [ref=e491]:
+            - link "空港" [ref=e492] [cursor=pointer]:
+              - /url: https://www.booking.com/airport.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e494]: 空港
+            - text: .
+          - listitem [ref=e495]:
+            - link "ホテル" [ref=e496] [cursor=pointer]:
+              - /url: https://www.booking.com/hotel/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e498]: ホテル
+            - text: .
+          - listitem [ref=e499]:
+            - link "周辺情報" [ref=e500] [cursor=pointer]:
+              - /url: https://www.booking.com/landmark.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e502]: 周辺情報
+            - text: .
+          - listitem [ref=e503]:
+            - link "別荘" [ref=e504] [cursor=pointer]:
+              - /url: https://www.booking.com/booking-home/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e506]: 別荘
+            - text: .
+          - listitem [ref=e507]:
+            - link "アパートメント" [ref=e508] [cursor=pointer]:
+              - /url: https://www.booking.com/apartments/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e510]: アパートメント
+            - text: .
+          - listitem [ref=e511]:
+            - link "リゾート" [ref=e512] [cursor=pointer]:
+              - /url: https://www.booking.com/resorts/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e514]: リゾート
+            - text: .
+          - listitem [ref=e515]:
+            - link "ヴィラ" [ref=e516] [cursor=pointer]:
+              - /url: https://www.booking.com/villas/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e518]: ヴィラ
+            - text: .
+          - listitem [ref=e519]:
+            - link "ホステル" [ref=e520] [cursor=pointer]:
+              - /url: https://www.booking.com/hostels/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e522]: ホステル
+            - text: .
+          - listitem [ref=e523]:
+            - link "B&B" [ref=e524] [cursor=pointer]:
+              - /url: https://www.booking.com/bed-and-breakfast/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e526]: B&B
+            - text: .
+          - listitem [ref=e527]:
+            - link "ゲストハウス" [ref=e528] [cursor=pointer]:
+              - /url: https://www.booking.com/guest-house/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e530]: ゲストハウス
+            - text: .
+          - listitem [ref=e531]:
+            - link "バラエティ豊かな宿タイプ" [ref=e532] [cursor=pointer]:
+              - /url: https://www.booking.com/accommodations.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e534]: バラエティ豊かな宿タイプ
+            - text: .
+          - listitem [ref=e535]:
+            - link "すべての目的地" [ref=e536] [cursor=pointer]:
+              - /url: https://www.booking.com/destination.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e538]: すべての目的地
+            - text: .
+          - listitem [ref=e539]:
+            - link "フライトのすべての目的地" [ref=e540] [cursor=pointer]:
+              - /url: https://www.booking.com/flights/sitemap.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e542]: フライトのすべての目的地
+            - text: .
+          - listitem [ref=e543]:
+            - link "レンタカー営業所のすべてのロケーション" [ref=e544] [cursor=pointer]:
+              - /url: https://www.booking.com/cars/sitemap.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e546]: レンタカー営業所のすべてのロケーション
+            - text: .
+          - listitem [ref=e547]:
+            - link "すべての旅の目的地" [ref=e548] [cursor=pointer]:
+              - /url: https://www.booking.com/holidays/sitemap.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e550]: すべての旅の目的地
+            - text: .
+          - listitem [ref=e551]:
+            - link "旅に関するガイド" [ref=e552] [cursor=pointer]:
+              - /url: https://www.booking.com/guides/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e554]: 旅に関するガイド
+            - text: .
+          - listitem [ref=e555]:
+            - link "インスピレーション" [ref=e556] [cursor=pointer]:
+              - /url: https://www.booking.com/discover.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e558]: インスピレーション
+            - text: .
+          - listitem [ref=e559]:
+            - link "1ヶ月以上の滞在向けの宿" [ref=e560] [cursor=pointer]:
+              - /url: https://www.booking.com/extended-stays/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+              - generic [ref=e562]: 1ヶ月以上の滞在向けの宿
+      - generic [ref=e564]:
+        - generic [ref=e565]:
+          - heading "サポート" [level=3] [ref=e567]
+          - list [ref=e568]:
+            - listitem [ref=e569]:
+              - link "ご旅行の管理" [ref=e571] [cursor=pointer]:
+                - /url: https://secure.booking.com/content/cs.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e572]: ご旅行の管理
+            - listitem [ref=e573]:
+              - link "カスタマーサービスへのお問い合わせ" [ref=e575] [cursor=pointer]:
+                - /url: https://secure.booking.com/help.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e576]: カスタマーサービスへのお問い合わせ
+            - listitem [ref=e577]:
+              - link "安全性に関するリソースセンター" [ref=e579] [cursor=pointer]:
+                - /url: https://www.booking.com/trust_and_safety.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e580]: 安全性に関するリソースセンター
+        - generic [ref=e581]:
+          - heading "こちらもチェック" [level=3] [ref=e583]
+          - list [ref=e584]:
+            - listitem [ref=e585]:
+              - link "Geniusロイヤルティプログラム" [ref=e587] [cursor=pointer]:
+                - /url: https://www.booking.com/genius.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e588]: Geniusロイヤルティプログラム
+            - listitem [ref=e589]:
+              - link "季節のセール＆休暇シーズンのセール" [ref=e591] [cursor=pointer]:
+                - /url: https://www.booking.com/deals/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e592]: 季節のセール＆休暇シーズンのセール
+            - listitem [ref=e593]:
+              - link "旅行・観光情報" [ref=e595] [cursor=pointer]:
+                - /url: https://www.booking.com/articles.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e596]: 旅行・観光情報
+            - listitem [ref=e597]:
+              - link "Booking.com for Business" [ref=e599] [cursor=pointer]:
+                - /url: https://business.booking.com/?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e600]: Booking.com for Business
+            - listitem [ref=e601]:
+              - link "Traveller Review Awards" [ref=e603] [cursor=pointer]:
+                - /url: https://www.booking.com/traveller-awards/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e604]: Traveller Review Awards
+            - listitem [ref=e605]:
+              - link "レンタカー" [ref=e607] [cursor=pointer]:
+                - /url: https://www.booking.com/cars/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e608]: レンタカー
+            - listitem [ref=e609]:
+              - link "フライト検索" [ref=e611] [cursor=pointer]:
+                - /url: https://booking.com/pxgo?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&url=https%3A%2F%2Fbooking.kayak.com%2Fin%3Fsid%3D637cf7a579ee15f8ed83583df3b5c593%26mc%3DJPY%26bdclc%3Dja%26p%3Dfooter_link%26a%3Dbdc%252Ffooter_link&aid=304142&lang=ja&token=UmFuZG9tSVYkc2RlIyh9Yek6N0IyIDltocYiZvkOGRwejlYcrvnRoOHTdpbcfLm9fkem_ZBMyR3jQ7A2lMAj18AlP1ycCzrgLKDdATlqaEBIcTIl36-y62DFIk1ULz33i56FoT8wuUMKT9VekyWI1rZOwMcA3GKb5Qp6hUfAnRLfpfqt2Rxfw8PwhbyLF7KfiuDK6sgs_H3sHQvsJy0xoKn-b0yktlTPI3T0AA4tKGQXKu8l5_fj99SR67RxGI2auNS1gKR1ym35WZBXVcwGryx470kPlZwWf-QJ4ETTkzOx-Lgt-8zFMpA68lo2p4VtIIT83Rf0Sn3zJq8MwTvYYCiDR-4FF6xfHUEp1t_tUGYWYL0MD8o_Qg_bmchDq4hEoFpbJ7_yc1hm8ZEiD9ED0rfaYfF_E31sBfCHeWfJFOsYhFH6vXSd_I3Lsd7qdDLJJ3BlEoMlr27YXZaLCoTqBu5QRrIYONWPZnQ9GGDVqEG8t8eo2bAmmPvYgFs4_XpS7MfflkZMgxdY5Y9SF3vAqw
+                - generic [ref=e612]: フライト検索
+            - listitem [ref=e613]:
+              - link "レストラン予約" [ref=e615] [cursor=pointer]:
+                - /url: https://www.opentable.jp/?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&ref=11004
+                - generic [ref=e616]: レストラン予約
+            - listitem [ref=e617]:
+              - link "Booking.com旅行代理店専用ツール" [ref=e619] [cursor=pointer]:
+                - /url: https://www.booking.com/affiliate-program/v2/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593&utm_campaign=booking-footer&utm_content=travel-agents-link&utm_medium=referral&utm_source=booking.com
+                - generic [ref=e620]: Booking.com旅行代理店専用ツール
+        - generic [ref=e621]:
+          - heading "利用規約＆各種設定" [level=3] [ref=e623]
+          - list [ref=e624]:
+            - listitem [ref=e625]:
+              - link "プライバシーに関する通知" [ref=e627] [cursor=pointer]:
+                - /url: https://www.booking.com/content/privacy.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e628]: プライバシーに関する通知
+            - listitem [ref=e629]:
+              - link "利用規約" [ref=e631] [cursor=pointer]:
+                - /url: https://www.booking.com/content/terms.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e632]: 利用規約
+            - listitem [ref=e633]:
+              - link "アクセシビリティに関する声明" [ref=e635] [cursor=pointer]:
+                - /url: https://www.booking.com/content/accessibility_statement.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e636]: アクセシビリティに関する声明
+            - listitem [ref=e637]:
+              - link "パートナー施設様向け：紛争解決" [ref=e639] [cursor=pointer]:
+                - /url: https://secure.booking.com/content/complaints.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e640]: パートナー施設様向け：紛争解決
+            - listitem [ref=e641]:
+              - link "現代奴隷法に係る声明" [ref=e643] [cursor=pointer]:
+                - /url: https://www.bookingholdings.com/modern-slavery-statement/?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                - generic [ref=e644]: 現代奴隷法に係る声明
+            - listitem [ref=e645]:
+              - link "人権方針" [ref=e647] [cursor=pointer]:
+                - /url: https://www.bookingholdings.com/about/compliance-and-ethics/human-rights/?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                - generic [ref=e648]: 人権方針
+        - generic [ref=e649]:
+          - heading "パートナー施設の方へ" [level=3] [ref=e651]
+          - list [ref=e652]:
+            - listitem [ref=e653]:
+              - link "管理画面ログイン" [ref=e655] [cursor=pointer]:
+                - /url: https://admin.booking.com/?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593&utm_campaign=login_footer_v0&utm_medium=frontend&utm_source=extranet_login_footer
+                - generic [ref=e656]: 管理画面ログイン
+            - listitem [ref=e657]:
+              - link "パートナーヘルプ" [ref=e659] [cursor=pointer]:
+                - /url: https://partner.booking.com/ja?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593&utm_campaign=footer_list&utm_medium=frontend_footer&utm_source=booking.com
+                - generic [ref=e660]: パートナーヘルプ
+            - listitem [ref=e661]:
+              - link "宿泊施設を掲載する" [ref=e663] [cursor=pointer]:
+                - /url: https://join.booking.com/?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&lang=ja&sid=637cf7a579ee15f8ed83583df3b5c593&utm_medium=frontend&utm_source=footer_menu
+                - generic [ref=e664]: 宿泊施設を掲載する
+            - listitem [ref=e665]:
+              - link "アフィリエイト登録" [ref=e667] [cursor=pointer]:
+                - /url: https://www.booking.com/affiliate-program/v2/index.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593&utm_campaign=booking-footer&utm_content=become-an-affiliate-link&utm_medium=referral&utm_source=booking.com
+                - generic [ref=e668]: アフィリエイト登録
+        - generic [ref=e669]:
+          - heading "会社概要" [level=3] [ref=e671]
+          - list [ref=e672]:
+            - listitem [ref=e673]:
+              - link "Booking.comについて" [ref=e675] [cursor=pointer]:
+                - /url: https://www.booking.com/content/about.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e676]: Booking.comについて
+            - listitem [ref=e677]:
+              - link "当サイトの仕組み" [ref=e679] [cursor=pointer]:
+                - /url: https://www.booking.com/content/how_we_work.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e680]: 当サイトの仕組み
+            - listitem [ref=e681]:
+              - link "サステナビリティ" [ref=e683] [cursor=pointer]:
+                - /url: https://sustainability.booking.com/?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                - generic [ref=e684]: サステナビリティ
+            - listitem [ref=e685]:
+              - link "プレスルーム" [ref=e687] [cursor=pointer]:
+                - /url: https://news.booking.com/ja
+                - generic [ref=e688]: プレスルーム
+            - listitem [ref=e689]:
+              - link "採用情報" [ref=e691] [cursor=pointer]:
+                - /url: https://careers.booking.com/?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                - generic [ref=e692]: 採用情報
+            - listitem [ref=e693]:
+              - link "IR情報" [ref=e695] [cursor=pointer]:
+                - /url: https://www.bookingholdings.com/?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142
+                - generic [ref=e696]: IR情報
+            - listitem [ref=e697]:
+              - link "各種お問い合わせ" [ref=e699] [cursor=pointer]:
+                - /url: https://www.booking.com/content/contact-us.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e700]: 各種お問い合わせ
+            - listitem [ref=e701]:
+              - link "コンテンツの報告に関するガイドライン" [ref=e703] [cursor=pointer]:
+                - /url: https://www.booking.com/content-moderation-policy/overview-page.ja.html?label=gen173nr-10CAEoggI46AdIM1gEaHWIAQGYATO4ARfIAQzYAQPoAQH4AQGIAgGoAgG4Apu0s9EGwAIB0gIkZjcwMTQ3MDEtMzkwNy00ODBlLWJiODUtOWU1OWJkYjY5ZDMw2AIB4AIB&aid=304142&sid=637cf7a579ee15f8ed83583df3b5c593
+                - generic [ref=e704]: コンテンツの報告に関するガイドライン
+      - generic [ref=e706]:
+        - generic [ref=e707]:
+          - button "言語設定：日本語" [ref=e709] [cursor=pointer]
+          - button "料金の通貨：円" [ref=e714] [cursor=pointer]:
+            - generic [ref=e715]: JPY
+        - separator [ref=e716]
+        - generic [ref=e717]:
+          - generic [ref=e719]: Booking.comは、オンライン旅行サービスのグローバルリーダーであるBooking Holdings Inc.の一部です。
+          - generic [ref=e720]: Copyright © 1996–2026 Booking.com™. All rights reserved.
+        - generic [ref=e721]:
+          - img "Booking.com" [ref=e722]:
+            - img [ref=e723]
+          - img "Priceline.com" [ref=e725]:
+            - img [ref=e726]
+          - img "Kayak" [ref=e729]:
+            - img [ref=e730]
+          - img "Agoda" [ref=e744]:
+            - img [ref=e745]
+          - img "OpenTable" [ref=e753]:
+            - img [ref=e754]
