@@ -1,5 +1,5 @@
 tunnel: job-hunting-agent
-credentials-file: /home/pi/.cloudflared/<tunnel-id>.json
+credentials-file: /home/yokochi/.cloudflared/<tunnel-id>.json
 
 ingress:
   - hostname: api.dreamyard.cc

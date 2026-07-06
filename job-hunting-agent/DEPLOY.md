@@ -120,23 +120,30 @@ cloudflared tunnel create job-hunting-agent
 cloudflared tunnel route dns job-hunting-agent api.<あなたのドメイン>
 ```
 
-`~/.cloudflared/config.yml` を作成:
-
-```yaml
-tunnel: job-hunting-agent
-credentials-file: /home/yokochi/.cloudflared/<tunnel-id>.json
-
-ingress:
-  - hostname: api.<あなたのドメイン>
-    service: http://localhost:3000
-  - service: http_status:404
-```
-
-サービス化して常時起動:
+`config.yml` は `.env` と同じ扱いにする。テンプレート
+（`.cloudflared/config.yml.sample`、`<tunnel-id>`はプレースホルダ）はリポジトリで
+追跡するが、実体の `.cloudflared/config.yml` はリポジトリ内に置きつつ
+`.gitignore` で追跡除外している（トンネルIDなど環境固有情報を含むため）。
 
 ```bash
-sudo cloudflared service install
-sudo systemctl enable --now cloudflared
+cd /opt/Procson
+cp .cloudflared/config.yml.sample .cloudflared/config.yml
+nano .cloudflared/config.yml   # <tunnel-id> をA-7で作成したトンネルのIDに書き換える
+```
+
+`cloudflared service install` は `~/.cloudflared/config.yml` を前提に
+`/etc/cloudflared/` へ自動コピーする挙動のため、リポジトリ内のconfigパスを
+そのまま使えない。そこでA-5のバックエンドと同様に、リポジトリ管理下の
+ユニットファイル（`job-hunting-agent/deploy/systemd/cloudflared-job-hunting.service`、
+`--config /opt/Procson/.cloudflared/config.yml` を明示指定）をシンボリック
+リンクで有効化する:
+
+```bash
+sudo ln -s /opt/Procson/job-hunting-agent/deploy/systemd/cloudflared-job-hunting.service \
+  /etc/systemd/system/cloudflared-job-hunting.service
+sudo systemctl daemon-reload
+sudo systemctl enable --now cloudflared-job-hunting
+sudo systemctl status cloudflared-job-hunting   # active (running) を確認
 ```
 
 確認:
