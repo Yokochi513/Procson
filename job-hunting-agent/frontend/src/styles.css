@@ -1,0 +1,194 @@
+/* 就活相談チャット SC-1（設計書 4.2）のスタイル */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Hiragino Kaku Gothic ProN", "Yu Gothic UI", Meiryo, sans-serif;
+  background: #f4f6f8;
+  color: #222;
+}
+
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  max-width: 760px;
+  height: 100vh;
+  margin: 0 auto;
+  padding: 12px 16px;
+}
+
+.chat-header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.chat-header p {
+  margin: 4px 0 8px;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* プロフィール入力（FR-1） */
+.profile {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  font-size: 0.85rem;
+}
+
+.profile summary {
+  cursor: pointer;
+  color: #444;
+}
+
+.profile-fields {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.profile-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 180px;
+  color: #555;
+}
+
+.profile-fields input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+}
+
+/* 会話表示エリア（FR-4, FR-6） */
+.messages {
+  flex: 1;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.empty-hint {
+  color: #888;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 24px;
+}
+
+.bubble-row {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.bubble-row.user {
+  justify-content: flex-end;
+}
+
+.bubble {
+  max-width: 75%;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #eef1f4;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.bubble.user {
+  background: #d3e8ff;
+}
+
+/* ローディングインジケータ（FR-4, NFR-1） */
+.loading-bubble .dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin: 0 2px;
+  border-radius: 50%;
+  background: #999;
+  animation: blink 1.2s infinite ease-in-out;
+}
+
+.loading-bubble .dot:nth-child(2) { animation-delay: 0.2s; }
+.loading-bubble .dot:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes blink {
+  0%, 80%, 100% { opacity: 0.25; }
+  40% { opacity: 1; }
+}
+
+/* エラー表示＋再送（FR-8） */
+.error-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #fdecea;
+  color: #b3261e;
+  border: 1px solid #f5c6c2;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+}
+
+.error-bar button {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #b3261e;
+  color: #fff;
+  cursor: pointer;
+}
+
+/* 入力フォーム（FR-2） */
+.input-form {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.input-form textarea {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: none;
+}
+
+.input-form button {
+  padding: 0 20px;
+  border: none;
+  border-radius: 8px;
+  background: #1a73e8;
+  color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.input-form button:disabled {
+  background: #a8c7ec;
+  cursor: not-allowed;
+}
+
+.length-warning {
+  margin: 4px 0 0;
+  color: #b3261e;
+  font-size: 0.8rem;
+}
