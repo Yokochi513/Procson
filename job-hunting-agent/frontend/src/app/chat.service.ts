@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
 export interface Profile {
   grade: string;
@@ -31,7 +32,7 @@ export class ChatService {
   }
 
   sendMessage(message: string, profile: Profile): Observable<{ reply: string }> {
-    return this.http.post<{ reply: string }>('/api/chat', {
+    return this.http.post<{ reply: string }>(`${environment.apiBaseUrl}/api/chat`, {
       userId: this.getUserId(),
       message,
       profile,
@@ -39,7 +40,7 @@ export class ChatService {
   }
 
   getHistory(): Observable<{ messages: ChatMessage[] }> {
-    return this.http.get<{ messages: ChatMessage[] }>('/api/history', {
+    return this.http.get<{ messages: ChatMessage[] }>(`${environment.apiBaseUrl}/api/history`, {
       params: { userId: this.getUserId() },
     });
   }
