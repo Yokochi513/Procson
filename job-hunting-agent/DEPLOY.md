@@ -40,9 +40,13 @@ node -v   # v22.5.0 以上であることを確認
 
 ### A-2. リポジトリ配置と依存関係インストール
 
+`/opt` 配下に配置する場合、`/opt` はrootの所有なので事前に権限を調整するか、
+sudoでcloneして所有者を変更する。
+
 ```bash
-git clone https://github.com/Yokochi513/Procson.git
-cd Procson/job-hunting-agent/backend
+sudo git clone https://github.com/Yokochi513/Procson.git /opt/Procson
+sudo chown -R yokochi:yokochi /opt/Procson
+cd /opt/Procson/job-hunting-agent/backend
 npm install --omit=dev
 ```
 
@@ -68,31 +72,23 @@ curl http://localhost:3000/api/history?userId=test
 
 ### A-5. systemd で常時起動化
 
-`/etc/systemd/system/job-hunting-backend.service` を作成:
-
-```ini
-[Unit]
-Description=Job Hunting Agent Backend
-After=network.target
-
-[Service]
-Type=simple
-User=pi
-WorkingDirectory=/home/pi/Procson/job-hunting-agent/backend
-ExecStart=/usr/bin/node src/server.js
-Restart=on-failure
-EnvironmentFile=/home/pi/Procson/job-hunting-agent/backend/.env
-
-[Install]
-WantedBy=multi-user.target
-```
+systemdはユニットファイルを `/etc/systemd/system/` などの決まった場所からしか
+読み込めないが、シンボリックリンクは辿れる。そこでユニットファイルの実体は
+リポジトリ側（`job-hunting-agent/deploy/systemd/job-hunting-backend.service`）に
+バージョン管理下として置き、`/etc/systemd/system/` にはそこへのシンボリック
+リンクを張って有効化する。
 
 ```bash
+sudo ln -s /opt/Procson/job-hunting-agent/deploy/systemd/job-hunting-backend.service \
+  /etc/systemd/system/job-hunting-backend.service
 sudo systemctl daemon-reload
 sudo systemctl enable --now job-hunting-backend
 sudo systemctl status job-hunting-backend   # active (running) を確認
 journalctl -u job-hunting-backend -f        # ログ確認
 ```
+
+ユニットファイルの内容を変更した場合は `git pull` 後に
+`sudo systemctl daemon-reload && sudo systemctl restart job-hunting-backend` で反映する。
 
 ### A-6. CORSをGitHub Pagesのオリジンに限定（推奨）
 
@@ -139,7 +135,7 @@ cloudflared tunnel route dns job-hunting-agent api.<あなたのドメイン>
 
 ```yaml
 tunnel: job-hunting-agent
-credentials-file: /home/pi/.cloudflared/<tunnel-id>.json
+credentials-file: /home/yokochi/.cloudflared/<tunnel-id>.json
 
 ingress:
   - hostname: api.<あなたのドメイン>

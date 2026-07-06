@@ -1,0 +1,14 @@
+[Unit]
+Description=Job Hunting Agent Backend
+After=network.target
+
+[Service]
+Type=simple
+User=yokochi
+WorkingDirectory=/opt/Procson/job-hunting-agent/backend
+ExecStart=/usr/bin/node src/server.js
+Restart=on-failure
+EnvironmentFile=/opt/Procson/job-hunting-agent/backend/.env
+
+[Install]
+WantedBy=multi-user.target
