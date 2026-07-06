@@ -9,4 +9,5 @@ export const config = {
   maxMessageLen: Number(process.env.MAX_MESSAGE_LEN ?? 2000), // P-1
   historyN: Number(process.env.HISTORY_N ?? 20), // P-2
   dbFile: process.env.DB_FILE ?? 'data/app.db',
+  allowedOrigin: process.env.ALLOWED_ORIGIN ?? 'https://yokochi513.github.io',
 };

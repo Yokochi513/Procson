@@ -92,22 +92,11 @@ journalctl -u job-hunting-backend -f        # ログ確認
 
 ### A-6. CORSをGitHub Pagesのオリジンに限定（推奨）
 
-現状 `backend/src/server.js` は `app.use(cors())` で全オリジン許可になっている。
-本番公開時は許可オリジンをGitHub Pagesに限定する。
-
-`backend/src/config.js` に追加:
-
-```js
-allowedOrigin: process.env.ALLOWED_ORIGIN ?? 'https://yokochi513.github.io',
-```
-
-`backend/src/server.js` を変更:
-
-```js
-app.use(cors({ origin: config.allowedOrigin }));
-```
-
-`.env` に追記:
+`backend/src/config.js`（`allowedOrigin`）と `backend/src/server.js`
+（`cors({ origin: config.allowedOrigin })`）は対応済み。既定値は
+`https://yokochi513.github.io` だが、別オリジンで公開する場合は
+`.env` に以下を追記して上書きする（`.env`/`.env.example` は環境変数
+ファイルのため、この手順書からは自動編集していない。手動で追記すること）:
 
 ```
 ALLOWED_ORIGIN=https://yokochi513.github.io

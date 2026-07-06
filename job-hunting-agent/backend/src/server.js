@@ -6,7 +6,7 @@ import { historyRouter } from './routes/history.js';
 
 const app = express();
 
-app.use(cors()); // ローカル開発用（FE: localhost:4200 → BE: localhost:3000）
+app.use(cors({ origin: config.allowedOrigin })); // 本番はGitHub PagesのオリジンのみFEからのアクセスを許可
 app.use(express.json());
 
 app.use(chatRouter);
