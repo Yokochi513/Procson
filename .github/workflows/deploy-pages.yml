@@ -2,7 +2,7 @@ name: Deploy job-hunting-agent to GitHub Pages
 
 on:
   push:
-    branches: [create_AI_job_hunting]
+    branches: [main]
     paths:
       - 'job-hunting-agent/frontend/**'
   workflow_dispatch:
