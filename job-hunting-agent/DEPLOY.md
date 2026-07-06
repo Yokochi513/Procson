@@ -232,7 +232,7 @@ name: Deploy job-hunting-agent to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [create_AI_job_hunting]
     paths:
       - 'job-hunting-agent/frontend/**'
   workflow_dispatch:
@@ -276,9 +276,10 @@ jobs:
         uses: actions/deploy-pages@v4
 ```
 
-`main` ブランチの `job-hunting-agent/frontend/` 配下に push すると自動で
-ビルド・デプロイされる。手動実行したい場合は Actions タブから
-「Run workflow」でも起動できる（`workflow_dispatch`）。
+`create_AI_job_hunting` ブランチの `job-hunting-agent/frontend/` 配下に push
+すると自動でビルド・デプロイされる（当面 `main` にはマージしない運用のため）。
+手動実行したい場合は Actions タブから「Run workflow」でも起動できる
+（`workflow_dispatch`）。
 
 ### C-3. 公開URL
 
