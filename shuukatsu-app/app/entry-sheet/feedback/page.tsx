@@ -9,7 +9,10 @@ import { EntrySheetAnswers } from "@/lib/entrySheet/types";
 import { loadEntrySheet } from "@/lib/entrySheet/storage";
 import { calculateEntrySheetScore, EntrySheetScore } from "@/lib/entrySheet/scoring";
 import { generateEntrySheetFeedback } from "@/lib/entrySheet/feedback";
+import { mockEsFeedback } from "@/lib/ai/esFeedbackMock";
 import { InterviewerAvatar } from "@/components/interview/InterviewerAvatar";
+
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 const scoreItems: { key: keyof EntrySheetScore; label: string }[] = [
   { key: "volume", label: "分量" },
@@ -31,15 +34,17 @@ export default function EntrySheetFeedbackPage() {
     setAiLoading(true);
     setAiComment(null);
     try {
-      const res = await fetch("/api/es-feedback", {
+      const res = await fetch(`${basePath}/api/es-feedback`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ answers }),
       });
+      if (!res.ok) throw new Error(`API returned ${res.status}`);
       const data = await res.json();
       setAiComment(data.comment);
     } catch {
-      setAiComment("コメントの取得に失敗しました。時間をおいて再度お試しください。");
+      // GitHub Pages などの静的配信では API ルートが無いのでモックを返す。
+      setAiComment(mockEsFeedback(answers));
     } finally {
       setAiLoading(false);
     }

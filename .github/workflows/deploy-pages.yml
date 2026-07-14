@@ -1,10 +1,11 @@
-name: Deploy job-hunting-agent to GitHub Pages
+name: Deploy shuukatsu-app to GitHub Pages
 
 on:
   push:
     branches: [main]
     paths:
-      - 'job-hunting-agent/frontend/**'
+      - 'shuukatsu-app/**'
+      - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
 
 permissions:
@@ -19,21 +20,28 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      STATIC_EXPORT: 'true'
+      NEXT_PUBLIC_BASE_PATH: /Procson
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: npm
-          cache-dependency-path: job-hunting-agent/frontend/package-lock.json
+          cache-dependency-path: shuukatsu-app/package-lock.json
       - run: npm ci
-        working-directory: job-hunting-agent/frontend
-      - run: npx ng build --configuration production --base-href /Procson/
-        working-directory: job-hunting-agent/frontend
-      - run: touch job-hunting-agent/frontend/dist/frontend/browser/.nojekyll
+        working-directory: shuukatsu-app
+      # 静的書き出しに API ルートは含められないため、ビルド前に取り除く。
+      # ES の AI コメントはクライアント側のモックにフォールバックする。
+      - run: rm -rf app/api
+        working-directory: shuukatsu-app
+      - run: npm run build
+        working-directory: shuukatsu-app
+      - run: touch shuukatsu-app/out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: job-hunting-agent/frontend/dist/frontend/browser
+          path: shuukatsu-app/out
 
   deploy:
     needs: build

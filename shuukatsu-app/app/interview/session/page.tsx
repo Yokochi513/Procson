@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { Suspense, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { getQuestions } from "@/lib/interview/questions";
 import { getQuestionsFromEntrySheet } from "@/lib/interview/esQuestions";
@@ -14,7 +14,7 @@ import AnswerBox from "@/lib/interview/AnswerBox";
 import ProgressBar from "@/lib/interview/ProgressBar";
 import { InterviewerAvatar } from "@/components/interview/InterviewerAvatar";
 
-export default function InterviewSessionPage() {
+function InterviewSession() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const isEsMode = searchParams.get("source") === "es";
@@ -141,5 +141,21 @@ export default function InterviewSessionPage() {
         </button>
       </div>
     </div>
+  );
+}
+
+// useSearchParams はクライアントでしか値が確定しないため、
+// 事前レンダリング時は Suspense 境界でくくる必要がある。
+export default function InterviewSessionPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="max-w-3xl mx-auto py-10 px-6 text-center text-gray-500">
+          読み込み中...
+        </div>
+      }
+    >
+      <InterviewSession />
+    </Suspense>
   );
 }
