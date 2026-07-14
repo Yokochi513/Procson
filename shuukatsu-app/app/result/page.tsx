@@ -85,13 +85,13 @@ useEffect(() => {
               <div key={dim.dimension}>
                 <div className="flex justify-between text-sm mb-1">
                   <span className="text-gray-700">{dim.label}</span>
-                  <span className="font-semibold text-indigo-600">
+                  <span className="font-semibold text-orange-500">
                     {dim.score}
                   </span>
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
-                    className="bg-indigo-500 h-2 rounded-full transition-all"
+                    className="bg-orange-400 h-2 rounded-full transition-all"
                     style={{ width: `${dim.score}%` }}
                   />
                 </div>
@@ -128,7 +128,7 @@ useEffect(() => {
 
   <p className="mt-2">
     マッチ度：
-    <span className="font-bold text-indigo-600">
+    <span className="font-bold text-orange-500">
       {company.match}%
     </span>
   </p>
@@ -146,7 +146,7 @@ useEffect(() => {
   <div className="mt-4 flex gap-3">
     <Link
       href={`/company/${encodeURIComponent(company.company)}`}
-      className="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700"
+      className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
     >
       詳細を見る
     </Link>

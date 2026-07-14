@@ -48,7 +48,7 @@ export default function CompanyPage() {
             <Link
               href={`/company/${encodeURIComponent(company.company)}`}
             >
-              <button className="mt-4 bg-indigo-600 text-white px-4 py-2 rounded">
+              <button className="mt-4 bg-orange-500 text-white px-4 py-2 rounded">
                 詳細を見る
               </button>
             </Link>

@@ -25,7 +25,7 @@ export function LikertScale({ value, onChange }: LikertScaleProps) {
           onClick={() => onChange(option.value)}
           className={`px-3 py-3 rounded-xl text-sm font-medium transition-all border-2 cursor-pointer ${
             value === option.value
-              ? "bg-indigo-600 text-white border-indigo-600 shadow-md"
+              ? "bg-orange-500 text-white border-orange-500 shadow-md"
               : "bg-white text-gray-700 border-gray-200 hover:border-indigo-300 hover:bg-indigo-50"
           }`}
         >

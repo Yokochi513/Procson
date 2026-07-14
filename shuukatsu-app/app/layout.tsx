@@ -10,8 +10,8 @@ const geistSans = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "キャリア診断 | 就活生向け自己分析",
-  description: "20問の質問であなたの強みと向いている職種を診断",
+  title: "就活Tool | 自己分析・ES・面接対策の総合就活サイト",
+  description: "自己分析診断、エントリーシート作成、AI面接練習まで。就活生のための総合サポートサイトです。",
 };
 
 export default function RootLayout({
