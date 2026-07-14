@@ -1,0 +1,16 @@
+/* シェアルバム 全体スタイル */
+:root {
+  --accent: #6c5ce7;
+  --surface: #ffffff;
+  --border: #e6e8ee;
+  --muted: #8a90a2;
+  --bg: #f6f7fb;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: #1f2430;
+  font-family: system-ui, -apple-system, "Segoe UI", "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+}
+button { font-family: inherit; }
