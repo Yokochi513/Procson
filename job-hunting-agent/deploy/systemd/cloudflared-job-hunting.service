@@ -1,0 +1,12 @@
+[Unit]
+Description=Cloudflare Tunnel for Job Hunting Agent
+After=network.target
+
+[Service]
+Type=simple
+User=yokochi
+ExecStart=/usr/local/bin/cloudflared tunnel --config /opt/Procson/.cloudflared/config.yml run job-hunting-agent
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

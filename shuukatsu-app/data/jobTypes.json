@@ -1,0 +1,67 @@
+[
+  {
+    "id": "engineer",
+    "name": "エンジニア",
+    "description": "技術を使ってプロダクトやサービスを開発する",
+    "icon": "💻",
+    "requiredDimensions": {
+      "analytical": 0.35,
+      "diligence": 0.3,
+      "creativity": 0.2,
+      "leadership": 0.05,
+      "communication": 0.1
+    }
+  },
+  {
+    "id": "sales",
+    "name": "営業",
+    "description": "顧客との関係構築と売上創出を担当する",
+    "icon": "📞",
+    "requiredDimensions": {
+      "communication": 0.4,
+      "leadership": 0.25,
+      "diligence": 0.15,
+      "analytical": 0.1,
+      "creativity": 0.1
+    }
+  },
+  {
+    "id": "marketing",
+    "name": "マーケティング",
+    "description": "ブランドや商品の認知拡大・顧客獲得を担う",
+    "icon": "📣",
+    "requiredDimensions": {
+      "creativity": 0.35,
+      "communication": 0.3,
+      "analytical": 0.2,
+      "leadership": 0.1,
+      "diligence": 0.05
+    }
+  },
+  {
+    "id": "consultant",
+    "name": "コンサルタント",
+    "description": "企業の課題を分析し、解決策を提案する",
+    "icon": "🎯",
+    "requiredDimensions": {
+      "analytical": 0.3,
+      "leadership": 0.25,
+      "communication": 0.25,
+      "creativity": 0.15,
+      "diligence": 0.05
+    }
+  },
+  {
+    "id": "hr",
+    "name": "人事",
+    "description": "採用・育成・組織開発など人に関わる業務を担う",
+    "icon": "👥",
+    "requiredDimensions": {
+      "communication": 0.35,
+      "leadership": 0.2,
+      "diligence": 0.2,
+      "analytical": 0.1,
+      "creativity": 0.15
+    }
+  }
+]

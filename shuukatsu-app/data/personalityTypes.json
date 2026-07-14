@@ -1,0 +1,37 @@
+[
+  {
+    "id": "leader",
+    "name": "リーダータイプ",
+    "description": "チームを牽引し、意思決定を恐れないタイプ。マネジメントや起業家精神を活かせます。",
+    "icon": "🚀",
+    "dominantDimensions": ["leadership", "communication"]
+  },
+  {
+    "id": "creator",
+    "name": "クリエイタータイプ",
+    "description": "新しいアイデアを生み出すことが得意。イノベーションを起こす仕事に向いています。",
+    "icon": "💡",
+    "dominantDimensions": ["creativity", "analytical"]
+  },
+  {
+    "id": "supporter",
+    "name": "サポータータイプ",
+    "description": "丁寧で粘り強く、周囲を支えるタイプ。安定した成果を出す仕事に向いています。",
+    "icon": "🤝",
+    "dominantDimensions": ["diligence", "communication"]
+  },
+  {
+    "id": "analyst",
+    "name": "アナリストタイプ",
+    "description": "論理的思考と分析力に優れるタイプ。データドリブンな仕事に向いています。",
+    "icon": "📊",
+    "dominantDimensions": ["analytical", "diligence"]
+  },
+  {
+    "id": "allrounder",
+    "name": "オールラウンダータイプ",
+    "description": "バランスの取れた能力を持つタイプ。幅広い分野で活躍できます。",
+    "icon": "⭐",
+    "dominantDimensions": []
+  }
+]

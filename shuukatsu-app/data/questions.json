@@ -1,0 +1,22 @@
+[
+  { "id": 1, "text": "リーダーシップを発揮することが好き", "dimension": "leadership" },
+  { "id": 2, "text": "新しいアイデアを考えることが好き", "dimension": "creativity" },
+  { "id": 3, "text": "コツコツ作業するのが得意", "dimension": "diligence" },
+  { "id": 4, "text": "人と話すのが好き", "dimension": "communication" },
+  { "id": 5, "text": "数字を扱うことが苦にならない", "dimension": "analytical" },
+  { "id": 6, "text": "チームをまとめる役割を担うことが多い", "dimension": "leadership" },
+  { "id": 7, "text": "既存のやり方にとらわれず改善を考える", "dimension": "creativity" },
+  { "id": 8, "text": "細かい作業も丁寧に続けられる", "dimension": "diligence" },
+  { "id": 9, "text": "初対面の人ともすぐに打ち解けられる", "dimension": "communication" },
+  { "id": 10, "text": "データやグラフを見るのが好き", "dimension": "analytical" },
+  { "id": 11, "text": "意思決定を率先して行うことが多い", "dimension": "leadership" },
+  { "id": 12, "text": "ブレインストーミングに参加するのが楽しい", "dimension": "creativity" },
+  { "id": 13, "text": "計画を立てて着実に実行するのが得意", "dimension": "diligence" },
+  { "id": 14, "text": "プレゼンテーションをするのが好き", "dimension": "communication" },
+  { "id": 15, "text": "論理的に物事を考えるのが得意", "dimension": "analytical" },
+  { "id": 16, "text": "困難な状況でも前向きにチームを引っ張る", "dimension": "leadership" },
+  { "id": 17, "text": "アートやデザインなど創造的な活動が好き", "dimension": "creativity" },
+  { "id": 18, "text": "締め切りを守って確実に成果を出せる", "dimension": "diligence" },
+  { "id": 19, "text": "相手の話を聞いて共感することが得意", "dimension": "communication" },
+  { "id": 20, "text": "複雑な問題を整理して解決するのが好き", "dimension": "analytical" }
+]
