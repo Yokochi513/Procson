@@ -1,0 +1,747 @@
+//1.Diagnosis.service · TS
+import { Injectable } from '@angular/core';
+
+export interface UserInput {
+  hobby: string;             // 1. 趣味・好きなこと（必須）
+  worry: string;             // 2. 今困っていること・悩み（必須）
+  effort: string;            // 3. 大学入学後に最も力を入れたこと（必須）
+  diagnosticResult: string;  // 4. 就活アプリの診断結果（必須）
+  dream?: string;            // 5. 将来の夢・やりたい仕事（任意）
+  location?: string;         // 6. 出身地・住んでいる場所（任意）
+}
+
+export interface DiagnosisResult {
+  story: string;    // 出力1: あなたの強み×岡山の課題 ストーリー
+  future: string;   // 出力2: 岡山での「ありえる未来」
+  actions: string;  // 出力3: 今すぐできる岡山との関わり方
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DiagnosisService {
+
+  private buildPrompt(input: UserInput): string {
+    const optionalDream = input.dream
+      ? `・将来の夢・やりたい仕事：${input.dream}`
+      : '';
+    const optionalLocation = input.location
+      ? `・出身地・住んでいる場所：${input.location}`
+      : '';
+
+    return `あなたは岡山の地域と若者をつなぐ、温かく情熱的なナビゲーターです。
+以下のユーザー情報をもとに、岡山でいきる（生きる・活きる）自分をイメージできる診断結果を生成してください。
+
+【ユーザー情報】
+・趣味・好きなこと：${input.hobby}
+・今困っていること・悩み：${input.worry}
+・大学入学後に最も力を入れたこと：${input.effort}
+・就活アプリの診断結果：${input.diagnosticResult}
+${optionalDream}
+${optionalLocation}
+
+【出力形式】
+必ず以下のJSONのみを返してください。前置きや説明文は一切不要です。
+
+{
+  "story": "【出力1】悩みや強みと岡山の地域課題を結びつけた物語文章を300〜400字で。なぜ岡山でその強みが活きるかを具体的に語り、二人称（あなた）で語りかけるスタイルで。",
+  "future": "【出力2】5〜10年後、このユーザーが岡山でどう生きているかを物語風に300〜400字で。強みや趣味が岡山でどう花開いているか具体的なシーンで描写。",
+  "actions": "【出力3】ユーザーの興味・強みに合った岡山で今すぐできる関わり方を3つ。①②③の形式で、各100字程度で具体的に。"
+}`;
+  }
+
+  async diagnose(input: UserInput): Promise<DiagnosisResult> {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: this.buildPrompt(input) }]
+      })
+    });
+
+    if (!response.ok) {
+      throw new Error(`APIエラー: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const text = data.content
+      .map((item: any) => item.type === 'text' ? item.text : '')
+      .join('');
+
+    const clean = text.replace(/```json|```/g, '').trim();
+    const parsed = JSON.parse(clean);
+
+    return {
+      story: parsed.story,
+      future: parsed.future,
+      actions: parsed.actions,
+    };
+  }
+}
+
+//2.Input.component · TS
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserInput } from '../../services/diagnosis.service';
+
+@Component({
+  selector: 'app-input',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  templateUrl: './input.component.html',
+  styleUrls: ['./input.component.css']
+})
+export class InputComponent {
+  formData: UserInput = {
+    hobby: '',
+    worry: '',
+    effort: '',
+    diagnosticResult: '',
+    dream: '',
+    location: '',
+  };
+
+  // 必須項目が全部入力されているか確認
+  get isValid(): boolean {
+    return (
+      this.formData.hobby.trim() !== '' &&
+      this.formData.worry.trim() !== '' &&
+      this.formData.effort.trim() !== '' &&
+      this.formData.diagnosticResult.trim() !== ''
+    );
+  }
+
+  constructor(private router: Router) {}
+
+  onSubmit() {
+    if (!this.isValid) return;
+    // ローディング画面へ遷移。入力データをstateで渡す
+    this.router.navigate(['/loading'], {
+      state: { input: this.formData }
+    });
+  }
+}
+
+//3.Input.component · HTML
+<div class="page">
+  <header class="header">
+    <h1 class="title">「岡山でいきる自分」診断</h1>
+    <p class="subtitle">あなたと岡山のつながりを発見する</p>
+  </header>
+
+  <main class="form-container">
+    <!-- 必須項目 -->
+    <section class="section">
+      <h2 class="section-title">あなたのことを教えてください</h2>
+      <p class="section-note">※のついた項目は必須です</p>
+
+      <div class="field">
+        <label class="label" for="hobby">
+          趣味・好きなこと <span class="required">※</span>
+        </label>
+        <p class="hint">例：音楽を聴くこと / カフェ巡り / バスケットボール</p>
+        <textarea
+          id="hobby"
+          class="textarea"
+          [(ngModel)]="formData.hobby"
+          placeholder="自由に入力してください"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="field">
+        <label class="label" for="worry">
+          今困っていること・悩み <span class="required">※</span>
+        </label>
+        <p class="hint">例：将来やりたいことが見つからない / 地元に帰るか迷っている / 自分の強みがわからない</p>
+        <textarea
+          id="worry"
+          class="textarea"
+          [(ngModel)]="formData.worry"
+          placeholder="自由に入力してください"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="field">
+        <label class="label" for="effort">
+          大学入学後に最も力を入れたこと <span class="required">※</span>
+        </label>
+        <p class="hint">きっかけ・何を考えたか・どう行動したかも含めて書いてみてください</p>
+        <textarea
+          id="effort"
+          class="textarea"
+          [(ngModel)]="formData.effort"
+          placeholder="自由に入力してください"
+          rows="5"
+        ></textarea>
+      </div>
+
+      <div class="field">
+        <label class="label" for="diagnosticResult">
+          就活アプリの診断結果 <span class="required">※</span>
+        </label>
+        <p class="hint">診断結果のテキストをそのままコピー＆ペーストしてください</p>
+        <textarea
+          id="diagnosticResult"
+          class="textarea"
+          [(ngModel)]="formData.diagnosticResult"
+          placeholder="診断結果をここに貼り付けてください"
+          rows="5"
+        ></textarea>
+      </div>
+    </section>
+
+    <!-- 任意項目 -->
+    <section class="section optional-section">
+      <h2 class="section-title">任意項目（入力するとより詳しい診断ができます）</h2>
+
+      <div class="field">
+        <label class="label" for="dream">将来の夢・やりたい仕事</label>
+        <p class="hint">入力すると夢と岡山のつながりをより具体的に描けます</p>
+        <textarea
+          id="dream"
+          class="textarea"
+          [(ngModel)]="formData.dream"
+          placeholder="自由に入力してください"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <div class="field">
+        <label class="label" for="location">出身地・住んでいる場所</label>
+        <p class="hint">入力すると地域性を考慮した提案が可能になります</p>
+        <input
+          id="location"
+          class="input"
+          type="text"
+          [(ngModel)]="formData.location"
+          placeholder="例：岡山市北区、倉敷市など"
+        />
+      </div>
+    </section>
+
+    <button
+      class="submit-btn"
+      [disabled]="!isValid"
+      (click)="onSubmit()"
+    >
+      診断する →
+    </button>
+
+    <p *ngIf="!isValid" class="validation-msg">
+      ※のついた項目をすべて入力してください
+    </p>
+  </main>
+</div>
+
+//4.Input.component · CSS
+.page {
+  min-height: 100vh;
+  background: #f0f7f4;
+}
+
+.header {
+  background: linear-gradient(135deg, #1a6b4a 0%, #2d9c6e 100%);
+  color: white;
+  padding: 2rem 1.25rem 1.5rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.02em;
+}
+
+.subtitle {
+  font-size: 0.875rem;
+  opacity: 0.85;
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+}
+
+.section {
+  background: white;
+  border-radius: 16px;
+  padding: 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.optional-section {
+  border: 1.5px dashed #b2d8c8;
+  background: #f9fefc;
+  box-shadow: none;
+}
+
+.section-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a6b4a;
+  margin-bottom: 0.25rem;
+}
+
+.section-note {
+  font-size: 0.75rem;
+  color: #888;
+  margin-bottom: 1rem;
+}
+
+.field {
+  margin-bottom: 1.25rem;
+}
+
+.label {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 0.25rem;
+}
+
+.required {
+  color: #e53e3e;
+  margin-left: 2px;
+}
+
+.hint {
+  font-size: 0.75rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.textarea,
+.input {
+  width: 100%;
+  border: 1.5px solid #dde;
+  border-radius: 10px;
+  padding: 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #333;
+  background: #fafafa;
+  resize: vertical;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.textarea:focus,
+.input:focus {
+  outline: none;
+  border-color: #2d9c6e;
+  background: white;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #1a6b4a, #2d9c6e);
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+  margin-top: 0.5rem;
+}
+
+.submit-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.submit-btn:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+.validation-msg {
+  text-align: center;
+  font-size: 0.8rem;
+  color: #e53e3e;
+  margin-top: 0.75rem;
+}
+
+//5.Loading.component · TS
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { DiagnosisService, UserInput } from '../../services/diagnosis.service';
+
+@Component({
+  selector: 'app-loading',
+  standalone: true,
+  templateUrl: './loading.component.html',
+  styleUrls: ['./loading.component.css']
+})
+export class LoadingComponent implements OnInit {
+
+  constructor(
+    private router: Router,
+    private diagnosisService: DiagnosisService
+  ) {}
+
+  ngOnInit() {
+    // 入力画面から渡されたデータを受け取る
+    const state = history.state as { input: UserInput };
+
+    // データがなければ入力画面に戻す
+    if (!state?.input) {
+      this.router.navigate(['/']);
+      return;
+    }
+
+    this.runDiagnosis(state.input);
+  }
+
+  private async runDiagnosis(input: UserInput) {
+    try {
+      const result = await this.diagnosisService.diagnose(input);
+      // 結果画面へ遷移。診断結果をstateで渡す
+      this.router.navigate(['/result'], { state: { result } });
+    } catch (error) {
+      console.error('診断エラー:', error);
+      // エラー時は入力画面に戻す
+      this.router.navigate(['/'], { state: { error: true } });
+    }
+  }
+}
+
+//6.Loading.component · HTML
+<div class="page">
+  <div class="content">
+    <div class="spinner-wrap">
+      <div class="spinner"></div>
+    </div>
+    <h2 class="message">AIがあなたと<br>岡山のつながりを<br>分析中...</h2>
+    <p class="sub">少々お待ちください</p>
+  </div>
+</div>
+
+
+//7.Loading.component · CSS
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f0f7f4 0%, #e0f2ec 100%);
+}
+
+.content {
+  text-align: center;
+  padding: 2rem;
+}
+
+.spinner-wrap {
+  margin-bottom: 2rem;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #b2d8c8;
+  border-top-color: #1a6b4a;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.message {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #1a6b4a;
+  line-height: 1.7;
+  margin-bottom: 0.75rem;
+}
+
+.sub {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+
+//8.Result.component · TS
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { DiagnosisResult } from '../../services/diagnosis.service';
+
+@Component({
+  selector: 'app-result',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './result.component.html',
+  styleUrls: ['./result.component.css']
+})
+export class ResultComponent implements OnInit {
+  result: DiagnosisResult | null = null;
+
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    const state = history.state as { result: DiagnosisResult };
+
+    // 結果がなければ入力画面に戻す
+    if (!state?.result) {
+      this.router.navigate(['/']);
+      return;
+    }
+
+    this.result = state.result;
+  }
+
+  // もう一度診断する
+  onRetry() {
+    this.router.navigate(['/']);
+  }
+}
+
+
+//9.Result.component · HTML
+<div class="page" *ngIf="result">
+  <header class="header">
+    <h1 class="title">あなたと岡山のつながり</h1>
+    <p class="subtitle">診断結果</p>
+  </header>
+
+  <main class="result-container">
+
+    <!-- 出力1: ストーリー -->
+    <section class="card card--story">
+      <div class="card-badge">出力 1</div>
+      <h2 class="card-title">あなたの強み × 岡山の課題</h2>
+      <p class="card-text">{{ result.story }}</p>
+    </section>
+
+    <!-- 出力2: ありえる未来 -->
+    <section class="card card--future">
+      <div class="card-badge">出力 2</div>
+      <h2 class="card-title">岡山での「ありえる未来」</h2>
+      <p class="card-text">{{ result.future }}</p>
+    </section>
+
+    <!-- 出力3: 今すぐできること -->
+    <section class="card card--actions">
+      <div class="card-badge">出力 3</div>
+      <h2 class="card-title">今すぐできる岡山との関わり方</h2>
+      <p class="card-text">{{ result.actions }}</p>
+    </section>
+
+    <button class="retry-btn" (click)="onRetry()">
+      もう一度診断する
+    </button>
+  </main>
+</div>
+
+
+//10.Result.component · CSS
+.page {
+  min-height: 100vh;
+  background: #f0f7f4;
+}
+
+.header {
+  background: linear-gradient(135deg, #1a6b4a 0%, #2d9c6e 100%);
+  color: white;
+  padding: 2rem 1.25rem 1.5rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.subtitle {
+  font-size: 0.85rem;
+  opacity: 0.85;
+}
+
+.result-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+  border-top: 4px solid transparent;
+}
+
+.card--story  { border-top-color: #6c63ff; }
+.card--future { border-top-color: #2d9c6e; }
+.card--actions { border-top-color: #f06623; }
+
+.card-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.card--story  .card-badge  { background: #eeecff; color: #4b44c4; }
+.card--future .card-badge  { background: #e0f5ec; color: #1a6b4a; }
+.card--actions .card-badge { background: #fff0e8; color: #c24a10; }
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 0.75rem;
+}
+
+.card-text {
+  font-size: 0.9rem;
+  color: #444;
+  line-height: 1.8;
+  white-space: pre-wrap;
+}
+
+.retry-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: white;
+  color: #1a6b4a;
+  border: 2px solid #1a6b4a;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 0.5rem;
+}
+
+.retry-btn:active {
+  background: #1a6b4a;
+  color: white;
+}
+
+
+//11.App.routes · TS
+import { Routes } from '@angular/router';
+import { InputComponent } from './pages/input/input.component';
+import { LoadingComponent } from './pages/loading/loading.component';
+import { ResultComponent } from './pages/result/result.component';
+
+export const routes: Routes = [
+  { path: '',        component: InputComponent },
+  { path: 'loading', component: LoadingComponent },
+  { path: 'result',  component: ResultComponent },
+  { path: '**',      redirectTo: '' },
+];
+
+
+//12.App.component · TS
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet],
+  template: '<router-outlet></router-outlet>'
+})
+export class AppComponent {}
+
+
+//13.App.config · TS
+import { ApplicationConfig } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { routes } from './app.routes';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideRouter(routes)]
+};
+
+
+
+//14.Readme · MD
+# 「岡山でいきる自分」診断アプリ
+
+## ファイル構成
+
+```
+src/app/
+├── app.component.ts       ← アプリのルート（router-outletを置くだけ）
+├── app.config.ts          ← ルーティングの設定
+├── app.routes.ts          ← 3画面のルート定義
+├── services/
+│   └── diagnosis.service.ts   ← ★Claude APIとの通信・プロンプト管理
+└── pages/
+    ├── input/             ← ①入力画面
+    │   ├── input.component.ts
+    │   ├── input.component.html
+    │   └── input.component.css
+    ├── loading/           ← ②ローディング画面（API呼び出しもここで実行）
+    │   ├── loading.component.ts
+    │   ├── loading.component.html
+    │   └── loading.component.css
+    └── result/            ← ③結果画面
+        ├── result.component.ts
+        ├── result.component.html
+        └── result.component.css
+```
+
+## 画面の流れ
+
+```
+/（入力画面）
+  → 「診断する」ボタン押下
+  → /loading（ローディング画面 + Claude API呼び出し）
+  → /result（結果画面：3つの出力を表示）
+  → 「もう一度診断する」で / に戻る
+```
+
+## 画面間のデータの受け渡し
+
+Angularのルーター `state` を使っています：
+
+```
+入力画面 → ローディング: history.state.input（UserInput）
+ローディング → 結果画面: history.state.result（DiagnosisResult）
+```
+
+## VSCodeでのセットアップ手順
+
+```bash
+# 1. Angularプロジェクト作成（初回のみ）
+ng new okayama-ikiru --standalone --routing
+
+# 2. 既存ファイルを上記コードで上書き
+
+# 3. 起動
+ng serve
+```
+
+## メンターさんへの確認事項
+
+1. Claude APIキーの設定方法（環境変数 or proxy）
+2. ng new の後、どのファイルをどこに配置するか
+3. CORS対策（APIをフロントから直接叩く場合）
