@@ -7,6 +7,9 @@ import { getApiKey } from "@/lib/ai/apiKey";
 // リクエストごとに実行（キャッシュしない）
 export const dynamic = "force-dynamic";
 
+/** 面接AIに使用するモデル（chat/evaluate共通） */
+const MODEL = "claude-sonnet-5";
+
 type ChatTurn = { role: "user" | "assistant"; content: string };
 
 /** 面接の対象企業情報（CSVの1行ぶん。無い場合は一般面接） */
@@ -222,7 +225,7 @@ export async function POST(request: NextRequest) {
         .join("\n");
 
       const response = await client.messages.create({
-        model: "claude-opus-4-8",
+        model: MODEL,
         // 調査の結果、実使用トークンは上限を大きく下回っていたが、
         // summary/improvements が長くなるケースに備えて余裕を持たせる。
         // （料金は実際に使用したトークン分のみで、上限を上げても増額にはならない）
@@ -275,7 +278,7 @@ export async function POST(request: NextRequest) {
 
     const requestStartedAt = Date.now();
     const response = await client.messages.create({
-      model: "claude-opus-4-8",
+      model: MODEL,
       // 調査により、通常時の使用量は 2048 に対し実測 109 トークン程度と判明したが、
       // ES・企業情報が長く面接官の返答が想定より長文化した場合に max_tokens で
       // 途中切断（JSON破損）しないよう、余裕を持たせて 4096 に引き上げる。
