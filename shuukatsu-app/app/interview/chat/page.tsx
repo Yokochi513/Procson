@@ -277,7 +277,9 @@ function InterviewChat() {
         </div>
       </div>
 
-      {!isSupported && (
+      {/* isSupported === null は「未判定」。SSRとクライアントの初回renderを
+          一致させるため、非対応が確定したときだけ表示する。 */}
+      {isSupported === false && (
         <p className="text-xs text-orange-600 mb-3">
           お使いのブラウザは音声読み上げに対応していません。テキストのみで進行します。
         </p>

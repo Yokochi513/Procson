@@ -104,14 +104,33 @@ ${buildContext(company, esAnswers)}
 【最初の発言】
 まだ会話が始まっていない場合は、入室の挨拶をしてから最初の質問（自己紹介）をしてください。
 
-【出力形式】
-必ず次のJSONのみを出力してください。前後に説明文やコードブロックは付けないでください。
-{
-  "reply": "面接官としての発言（上記ルールに従う）",
-  "category": "今その発言で尋ねている質問のカテゴリ。次のいずれか、または挨拶のみ・雑談なら空文字。[${interviewCategories.join(", ")}]",
-  "finished": 逆質問まで終えて面接を締めくくったら true、それ以外は false
-}`;
+【出力する各項目について】
+・reply … 面接官としての発言（上記ルールに従う。3〜4文程度）
+・category … 今その発言で尋ねている質問のカテゴリ。挨拶のみ・雑談の場合は空文字。
+・finished … 逆質問まで終えて面接を締めくくったら true、それ以外は false`;
 }
+
+/** chat モードの構造化出力スキーマ（JSONの形式をAPI側で保証させる） */
+const CHAT_SCHEMA = {
+  type: "object",
+  properties: {
+    reply: {
+      type: "string",
+      description: "面接官としての発言",
+    },
+    category: {
+      type: "string",
+      description: "今尋ねている質問のカテゴリ。挨拶のみ・雑談なら空文字。",
+      enum: [...interviewCategories, ""],
+    },
+    finished: {
+      type: "boolean",
+      description: "面接を締めくくったら true",
+    },
+  },
+  required: ["reply", "category", "finished"],
+  additionalProperties: false,
+} as const;
 
 /** 評価用システムプロンプト */
 function buildEvaluationSystem(company?: CompanyContext | null): string {
@@ -123,20 +142,45 @@ function buildEvaluationSystem(company?: CompanyContext | null): string {
 優しく、しかし公平に評価し、具体的で前向きな改善アドバイスを添えてください。
 ${target}
 
-【出力形式】
-必ず次のJSONのみを出力してください。前後に説明文やコードブロックは付けないでください。
-{
-  "logical": 論理性(0-100の整数),
-  "specific": 具体性(0-100の整数),
-  "passion": 熱意(0-100の整数),
-  "communication": コミュニケーション力(0-100の整数),
-  "total": 総合評価(0-100の整数),
-  "summary": "全体の総評（2〜3文）",
-  "improvements": ["具体的な改善点1", "具体的な改善点2", "具体的な改善点3"]
-}`;
+【出力する各項目について】
+・logical / specific / passion / communication / total … それぞれ0〜100の整数
+・summary … 全体の総評（2〜3文）
+・improvements … 具体的な改善点を3つ`;
 }
 
-/** モデル出力から JSON を安全に取り出す */
+/** evaluate モードの構造化出力スキーマ */
+const EVALUATION_SCHEMA = {
+  type: "object",
+  properties: {
+    logical: { type: "integer", description: "論理性 0〜100" },
+    specific: { type: "integer", description: "具体性 0〜100" },
+    passion: { type: "integer", description: "熱意 0〜100" },
+    communication: { type: "integer", description: "コミュニケーション力 0〜100" },
+    total: { type: "integer", description: "総合評価 0〜100" },
+    summary: { type: "string", description: "全体の総評（2〜3文）" },
+    improvements: {
+      type: "array",
+      description: "具体的な改善点",
+      items: { type: "string" },
+    },
+  },
+  required: [
+    "logical",
+    "specific",
+    "passion",
+    "communication",
+    "total",
+    "summary",
+    "improvements",
+  ],
+  additionalProperties: false,
+} as const;
+
+/**
+ * モデル出力から JSON を取り出す。
+ * output_config.format（構造化出力）で形式は保証されるが、
+ * 念のためコードブロック等が混じっても拾えるようにしておく。
+ */
 function extractJson(text: string): Record<string, unknown> {
   const trimmed = text.trim();
   // ```json ... ``` を剥がす
@@ -179,8 +223,11 @@ export async function POST(request: NextRequest) {
 
       const response = await client.messages.create({
         model: "claude-opus-4-8",
-        max_tokens: 1024,
+        max_tokens: 2048,
         system: buildEvaluationSystem(company),
+        output_config: {
+          format: { type: "json_schema", schema: EVALUATION_SCHEMA },
+        },
         messages: [
           {
             role: "user",
@@ -188,6 +235,14 @@ export async function POST(request: NextRequest) {
           },
         ],
       });
+
+      if (response.stop_reason === "max_tokens") {
+        console.error("Evaluation truncated by max_tokens");
+        return Response.json(
+          { error: "評価の生成が途中で終了しました。もう一度お試しください。" },
+          { status: 500 }
+        );
+      }
 
       const text = response.content
         .map((b) => (b.type === "text" ? b.text : ""))
@@ -209,10 +264,23 @@ export async function POST(request: NextRequest) {
 
     const response = await client.messages.create({
       model: "claude-opus-4-8",
-      max_tokens: 600,
+      // JSONのエスケープを含むため、発言が3〜4文でも余裕を持たせる
+      // （600だと途中で切れて JSON が壊れることがあった）
+      max_tokens: 2048,
       system: buildInterviewerSystem(company, esAnswers),
+      output_config: {
+        format: { type: "json_schema", schema: CHAT_SCHEMA },
+      },
       messages,
     });
+
+    if (response.stop_reason === "max_tokens") {
+      console.error("Interviewer reply truncated by max_tokens");
+      return Response.json(
+        { error: "面接官の応答が途中で終了しました。もう一度お試しください。" },
+        { status: 500 }
+      );
+    }
 
     const text = response.content
       .map((b) => (b.type === "text" ? b.text : ""))
