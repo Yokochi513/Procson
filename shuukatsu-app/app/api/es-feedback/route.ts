@@ -2,6 +2,7 @@ import type { NextRequest } from "next/server";
 import { entrySheetFields } from "@/lib/entrySheet/fields";
 import { EntrySheetAnswers } from "@/lib/entrySheet/types";
 import { mockEsFeedback } from "@/lib/ai/esFeedbackMock";
+import { getApiKey } from "@/lib/ai/apiKey";
 
 // このルートはリクエストごとに実行する（キャッシュしない）
 export const dynamic = "force-dynamic";
@@ -16,17 +17,17 @@ export async function POST(request: NextRequest) {
     answers: EntrySheetAnswers;
   };
 
-  const apiKey = process.env.ANTHROPIC_API_KEY;
+  const apiKey = getApiKey();
 
-  // --- キーが無い場合はモックを返す（現状はこちら） ---
+  // --- キーが無い場合はモックを返す ---
   if (!apiKey) {
     return Response.json({ comment: mockEsFeedback(answers), source: "mock" });
   }
 
-  // --- キーがある場合は実際の Claude API を呼ぶ（後で有効化） ---
+  // --- キーがある場合は実際の Claude API を呼ぶ ---
   try {
     const { default: Anthropic } = await import("@anthropic-ai/sdk");
-    const client = new Anthropic();
+    const client = new Anthropic({ apiKey });
 
     const es = entrySheetFields
       .map((f) => `【${f.label}】\n${(answers[f.id] ?? "").trim() || "（未記入）"}`)

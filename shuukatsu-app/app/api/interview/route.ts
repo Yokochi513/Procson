@@ -1,23 +1,79 @@
 import type { NextRequest } from "next/server";
 import { interviewCategories } from "@/lib/interview/interviewFlow";
+import { entrySheetFields } from "@/lib/entrySheet/fields";
+import type { EntrySheetAnswers } from "@/lib/entrySheet/types";
+import { getApiKey } from "@/lib/ai/apiKey";
 
 // リクエストごとに実行（キャッシュしない）
 export const dynamic = "force-dynamic";
 
 type ChatTurn = { role: "user" | "assistant"; content: string };
 
-/**
- * .env は `api_key=sk-ant-...` で保存されているため、
- * SDK 既定の ANTHROPIC_API_KEY だけでなく api_key も参照する。
- */
-function getApiKey(): string | undefined {
-  return process.env.ANTHROPIC_API_KEY ?? process.env.api_key;
+/** 面接の対象企業情報（CSVの1行ぶん。無い場合は一般面接） */
+interface CompanyContext {
+  company: string;
+  industry?: string;
+  strength?: string;
 }
 
 const CATEGORY_LIST = interviewCategories.join(" → ");
 
+/** 企業・ESの文脈をシステムプロンプトに差し込む文字列を作る */
+function buildContext(
+  company?: CompanyContext | null,
+  esAnswers?: EntrySheetAnswers | null
+): string {
+  const parts: string[] = [];
+
+  if (company?.company) {
+    parts.push(
+      `【面接を行う企業】
+あなたは「${company.company}」（業界：${company.industry ?? "不明"}）の面接官です。
+この企業の特徴・強み：${company.strength ?? "（情報なし）"}
+
+志望動機・入社後に挑戦したいことなどの質問では、必ずこの企業を前提にしてください（例：「なぜ当社を志望されたのですか」）。
+学生の回答がこの企業や業界の特徴と結びついているかに注目して、深掘りしてください。
+ただし、あなたが知らない社内制度などを断定的に語らないでください。`
+    );
+  } else {
+    parts.push(
+      `【面接を行う企業】
+特定の企業を指定しない、一般的な新卒採用面接として進めてください。
+志望動機の質問では「志望されている企業について」という形で尋ねてください。`
+    );
+  }
+
+  if (esAnswers) {
+    const es = entrySheetFields
+      .map((f) => {
+        const v = (esAnswers[f.id] ?? "").trim();
+        return v ? `【${f.label}】\n${v}` : null;
+      })
+      .filter(Boolean)
+      .join("\n\n");
+
+    if (es) {
+      parts.push(
+        `【学生が提出したエントリーシート】
+以下はこの学生が事前に提出したESです。内容を踏まえ、書かれている内容の深掘り（具体的なエピソード・数字・その時の判断など）を中心に質問してください。
+ESに書いてあることをそのまま聞き直すのではなく、「ESに〇〇とありますが、その時…」のように一歩踏み込んで尋ねてください。
+
+${es}`
+      );
+    }
+  }
+
+  return parts.join("\n\n");
+}
+
 /** 面接官AIの共通ルール（システムプロンプト） */
-const INTERVIEWER_SYSTEM = `あなたは新卒採用の面接官です。就職活動中の学生に、実際の採用面接に近い練習の場を提供します。
+function buildInterviewerSystem(
+  company?: CompanyContext | null,
+  esAnswers?: EntrySheetAnswers | null
+): string {
+  return `あなたは新卒採用の面接官です。就職活動中の学生に、実際の採用面接に近い練習の場を提供します。
+
+${buildContext(company, esAnswers)}
 
 【役割】
 ・あなたは面接官であり、学生を評価する立場です。
@@ -55,10 +111,17 @@ const INTERVIEWER_SYSTEM = `あなたは新卒採用の面接官です。就職�
   "category": "今その発言で尋ねている質問のカテゴリ。次のいずれか、または挨拶のみ・雑談なら空文字。[${interviewCategories.join(", ")}]",
   "finished": 逆質問まで終えて面接を締めくくったら true、それ以外は false
 }`;
+}
 
 /** 評価用システムプロンプト */
-const EVALUATION_SYSTEM = `あなたは面接の評価者です。これまでの面接のやり取り全体を読み、学生を100点満点で評価します。
+function buildEvaluationSystem(company?: CompanyContext | null): string {
+  const target = company?.company
+    ? `この面接は「${company.company}」（${company.industry ?? ""}）の選考です。志望動機や入社後の展望が、この企業の特徴と結びついているかも評価に含めてください。`
+    : "この面接は特定企業を指定しない一般的な新卒面接です。";
+
+  return `あなたは面接の評価者です。これまでの面接のやり取り全体を読み、学生を100点満点で評価します。
 優しく、しかし公平に評価し、具体的で前向きな改善アドバイスを添えてください。
+${target}
 
 【出力形式】
 必ず次のJSONのみを出力してください。前後に説明文やコードブロックは付けないでください。
@@ -71,9 +134,10 @@ const EVALUATION_SYSTEM = `あなたは面接の評価者です。これまで�
   "summary": "全体の総評（2〜3文）",
   "improvements": ["具体的な改善点1", "具体的な改善点2", "具体的な改善点3"]
 }`;
+}
 
 /** モデル出力から JSON を安全に取り出す */
-function extractJson(text: string): any {
+function extractJson(text: string): Record<string, unknown> {
   const trimmed = text.trim();
   // ```json ... ``` を剥がす
   const fenced = trimmed.match(/```(?:json)?\s*([\s\S]*?)```/);
@@ -88,9 +152,13 @@ export async function POST(request: NextRequest) {
   const body = (await request.json()) as {
     mode?: "chat" | "evaluate";
     history?: ChatTurn[];
+    company?: CompanyContext | null;
+    esAnswers?: EntrySheetAnswers | null;
   };
   const mode = body.mode ?? "chat";
   const history = body.history ?? [];
+  const company = body.company ?? null;
+  const esAnswers = body.esAnswers ?? null;
 
   const apiKey = getApiKey();
   if (!apiKey) {
@@ -112,7 +180,7 @@ export async function POST(request: NextRequest) {
       const response = await client.messages.create({
         model: "claude-opus-4-8",
         max_tokens: 1024,
-        system: EVALUATION_SYSTEM,
+        system: buildEvaluationSystem(company),
         messages: [
           {
             role: "user",
@@ -142,7 +210,7 @@ export async function POST(request: NextRequest) {
     const response = await client.messages.create({
       model: "claude-opus-4-8",
       max_tokens: 600,
-      system: INTERVIEWER_SYSTEM,
+      system: buildInterviewerSystem(company, esAnswers),
       messages,
     });
 
