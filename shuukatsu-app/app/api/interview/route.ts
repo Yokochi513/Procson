@@ -223,7 +223,10 @@ export async function POST(request: NextRequest) {
 
       const response = await client.messages.create({
         model: "claude-opus-4-8",
-        max_tokens: 2048,
+        // 調査の結果、実使用トークンは上限を大きく下回っていたが、
+        // summary/improvements が長くなるケースに備えて余裕を持たせる。
+        // （料金は実際に使用したトークン分のみで、上限を上げても増額にはならない）
+        max_tokens: 4096,
         system: buildEvaluationSystem(company),
         output_config: {
           format: { type: "json_schema", schema: EVALUATION_SCHEMA },
@@ -262,17 +265,41 @@ export async function POST(request: NextRequest) {
       ...history.map((t) => ({ role: t.role, content: t.content })),
     ];
 
+    // === 調査ログ①：システムプロンプト・履歴のサイズ（⑥の切り分け用） ===
+    const systemPrompt = buildInterviewerSystem(company, esAnswers);
+    console.log(
+      `[interview][debug] system prompt length=${systemPrompt.length} chars, ` +
+        `messages count=${messages.length}, ` +
+        `total message chars=${messages.reduce((n, m) => n + m.content.length, 0)}`
+    );
+
+    const requestStartedAt = Date.now();
     const response = await client.messages.create({
       model: "claude-opus-4-8",
-      // JSONのエスケープを含むため、発言が3〜4文でも余裕を持たせる
-      // （600だと途中で切れて JSON が壊れることがあった）
-      max_tokens: 2048,
-      system: buildInterviewerSystem(company, esAnswers),
+      // 調査により、通常時の使用量は 2048 に対し実測 109 トークン程度と判明したが、
+      // ES・企業情報が長く面接官の返答が想定より長文化した場合に max_tokens で
+      // 途中切断（JSON破損）しないよう、余裕を持たせて 4096 に引き上げる。
+      // （料金は実際に使用したトークン分のみで、上限を上げても増額にはならない）
+      max_tokens: 4096,
+      system: systemPrompt,
       output_config: {
         format: { type: "json_schema", schema: CHAT_SCHEMA },
       },
       messages,
     });
+    const elapsedMs = Date.now() - requestStartedAt;
+
+    // === 調査ログ②：レスポンスの生データを丸ごと出力 ===
+    // stop_reason / usage / content をそのまま確認できるようにする。
+    console.log(
+      `[interview][debug] Claude API call took ${elapsedMs}ms, ` +
+        `stop_reason=${response.stop_reason}, ` +
+        `usage=${JSON.stringify(response.usage)}`
+    );
+    console.log(
+      "[interview][debug] raw response.content=",
+      JSON.stringify(response.content, null, 2)
+    );
 
     if (response.stop_reason === "max_tokens") {
       console.error("Interviewer reply truncated by max_tokens");
@@ -285,6 +312,13 @@ export async function POST(request: NextRequest) {
     const text = response.content
       .map((b) => (b.type === "text" ? b.text : ""))
       .join("");
+
+    // === 調査ログ③：連結後のテキスト（パース対象そのもの） ===
+    console.log(
+      `[interview][debug] joined text length=${text.length}, content=`,
+      JSON.stringify(text)
+    );
+
     const parsed = extractJson(text);
 
     return Response.json({
