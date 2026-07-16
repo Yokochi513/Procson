@@ -34,7 +34,7 @@ export async function POST(request: NextRequest) {
       .join("\n\n");
 
     const response = await client.messages.create({
-      model: "claude-opus-4-8",
+      model: "claude-sonnet-5",
       max_tokens: 1024,
       system:
         "あなたは就活生を支援する、経験豊富で親身な面接官です。提出されたエントリーシートに対して、良い点を1つ、改善点を2つ、日本語で簡潔に（300字以内）フィードバックしてください。就活生を励ます前向きなトーンで書いてください。",
