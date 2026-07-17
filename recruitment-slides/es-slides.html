@@ -29,7 +29,7 @@
     background:var(--page);
     border-radius:6px;overflow:hidden;
     box-shadow:0 10px 30px rgba(0,0,0,.28);
-    padding:5.2% 5.6% 8% 5.6%;   /* 下部はフッター用に広めに確保 */
+    padding:5.2% 5.6%;
     display:flex;flex-direction:column;
   }
   /* 淡いローポリ風の隅アクセント */
@@ -52,7 +52,7 @@
   /* ボックス見出し（ネイビー） */
   .hd{
     background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);
-    color:#fff;font-weight:700;font-size:20px;text-align:center;
+    color:#fff;font-weight:700;font-size:16px;text-align:center;
     padding:10px 8px;border-radius:5px 5px 0 0;letter-spacing:.03em;
   }
   .body{
@@ -61,7 +61,7 @@
     box-shadow:0 4px 10px rgba(23,61,99,.06);
   }
   ul{list-style:none;display:flex;flex-direction:column;gap:9px;}
-  li{position:relative;padding-left:16px;font-size:20px;line-height:1.55;color:var(--ink);}
+  li{position:relative;padding-left:16px;font-size:14.5px;line-height:1.55;color:var(--ink);}
   li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:6px;
     border-radius:50%;background:var(--blue);}
   .accent{color:var(--blue);font-weight:800;}
@@ -71,19 +71,19 @@
     background:var(--card);border:1px solid var(--card-bd);border-radius:5px;
     padding:18px 22px;margin-bottom:3%;box-shadow:0 4px 10px rgba(23,61,99,.06);
     border-left:6px solid var(--navy);}
-  .intro-head .aff{color:var(--muted);font-size:20px;margin-bottom:4px;letter-spacing:.03em;}
+  .intro-head .aff{color:var(--muted);font-size:14px;margin-bottom:4px;letter-spacing:.03em;}
   .intro-head .name{color:var(--navy);font-size:34px;font-weight:800;letter-spacing:.06em;}
   .intro-head .name small{font-size:15px;color:var(--muted);font-weight:600;margin-left:10px;letter-spacing:.08em;}
-  .intro-head .tag{background:var(--navy);color:#fff;font-size:20px;font-weight:700;
+  .intro-head .tag{background:var(--navy);color:#fff;font-size:12.5px;font-weight:700;
     padding:6px 14px;border-radius:20px;white-space:nowrap;}
   .cards3{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:14px;flex:1;}
   .col{display:flex;flex-direction:column;}
 
   /* ===== ②志望動機 / ③自己PR 共通の大見出し ===== */
   .lead{background:var(--card);border:1px solid var(--card-bd);border-radius:6px;
-    border-left:6px solid var(--blue);padding:20px 26px;margin-bottom:2.2%;
+    border-left:6px solid var(--blue);padding:26px 28px;margin-bottom:2.8%;
     box-shadow:0 5px 14px rgba(23,61,99,.07);}
-  .lead .label{color:var(--blue);font-size:20px;font-weight:700;letter-spacing:.12em;margin-bottom:10px;}
+  .lead .label{color:var(--blue);font-size:13px;font-weight:700;letter-spacing:.12em;margin-bottom:10px;}
   .lead .big{color:var(--navy);font-size:32px;font-weight:800;line-height:1.4;letter-spacing:.01em;}
   .lead .big .em{color:var(--blue);}
   .sub-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;flex:1;}
@@ -91,7 +91,7 @@
   .note{background:var(--card);border:1px solid var(--card-bd);border-top:none;
     border-radius:0 0 5px 5px;padding:16px 18px;flex:1;display:flex;align-items:center;
     box-shadow:0 4px 10px rgba(23,61,99,.06);}
-  .note p{font-size:20px;line-height:1.6;color:var(--ink);}
+  .note p{font-size:16px;line-height:1.6;color:var(--ink);}
   .single{display:flex;flex-direction:column;flex:1;}
 
   /* フッター */
@@ -121,8 +121,8 @@
         <div class="hd">研究内容</div>
         <div class="body">
           <ul>
-            <li>地域の<span class="accent">情報格差</span>をテーマに研究</li>
-            <li>「技術が人にどう使われるか」に着目</li>
+            <li>地域コミュニティにおける<span class="accent">情報格差</span>の問題をテーマに研究</li>
+            <li>「技術が人にどう使われるか」という視点で調査・分析</li>
           </ul>
         </div>
       </div>
@@ -130,8 +130,8 @@
         <div class="hd">研究を通して感じたこと</div>
         <div class="body">
           <ul>
-            <li>ITが生活を変える可能性を実感</li>
-            <li>「使う側」から<span class="accent">「作る側」</span>へ</li>
+            <li>ITツールが人々の生活を大きく変える可能性を実感</li>
+            <li>「使う側」から<span class="accent">「作る側」</span>へ回りたいと考えるように</li>
           </ul>
         </div>
       </div>
@@ -139,8 +139,8 @@
         <div class="hd">現在行っていること</div>
         <div class="body">
           <ul>
-            <li>独学で<span class="accent">プログラミング</span>を学習中</li>
-            <li>Python等で作業の自動化に挑戦</li>
+            <li>独学で<span class="accent">プログラミングの基礎</span>を学習中</li>
+            <li>ExcelマクロやPythonで身近な作業の自動化に挑戦</li>
           </ul>
         </div>
       </div>
@@ -184,15 +184,15 @@
       <div class="sub">
         <div class="hd">強みの根拠</div>
         <div class="note">
-          <p>集計自動化で作業時間を<span class="accent">約6割削減</span>。<br>
-          工程を分解し、周囲を巻き込んで改善しました。</p>
+          <p>集計自動化で作業時間を約<span class="accent">6割削減</span>した経験。<br>
+          工程を分解し優先度順に着手、チームを巻き込んで改善しました。</p>
         </div>
       </div>
       <div class="sub">
         <div class="hd">入社後の活かし方</div>
         <div class="note">
-          <p>複雑な要件を構造化して開発に活かす。<br>
-          対話で周囲を巻き込み、前進させます。</p>
+          <p>複雑な要件を構造化し開発現場で活かす。<br>
+          対話で周囲を巻き込み、使いやすいシステムづくりに貢献します。</p>
         </div>
       </div>
     </div>
