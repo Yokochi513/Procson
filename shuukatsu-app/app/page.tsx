@@ -15,6 +15,12 @@ const tools = [
     desc: "自己PR・志望動機・ガクチカをじっくり作成できます。",
   },
   {
+    href: "/diary",
+    icon: "📔",
+    title: "日記分析",
+    desc: "日記からガクチカの種と面接深掘り質問をAIが発掘します。",
+  },
+  {
     href: "/interview",
     icon: "🎤",
     title: "AI面接練習",
@@ -84,10 +90,10 @@ export default function HomePage() {
           <h2 className="text-2xl sm:text-3xl font-black text-gray-900">
             就活Toolでできること
           </h2>
-          <p className="text-gray-500 mt-2">4つのツールで就活を効率化</p>
+          <p className="text-gray-500 mt-2">5つのツールで就活を効率化</p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {tools.map((tool) => (
             <Link
               key={tool.href}

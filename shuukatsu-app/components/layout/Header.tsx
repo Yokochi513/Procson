@@ -4,6 +4,7 @@ const navLinks = [
   { href: "/diagnosis", label: "自己分析" },
   { href: "/result", label: "診断結果" },
   { href: "/entry-sheet", label: "エントリーシート" },
+  { href: "/diary", label: "日記分析" },
   { href: "/interview", label: "面接練習" },
   { href: "/company", label: "企業を探す" },
 ];
