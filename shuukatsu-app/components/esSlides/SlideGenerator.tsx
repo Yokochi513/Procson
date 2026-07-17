@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { Spinner, LoadingState } from "@/components/ui/Spinner";
 import { mockSlidesHtml } from "@/lib/esSlides/mock";
 import {
   SlideTheme,
@@ -244,14 +245,24 @@ export function SlideGenerator() {
 
         <div className="mt-5">
           <Button onClick={generate} disabled={loading || !es.trim()}>
-            {loading ? "スライドを生成しています..." : "スライドを生成する"}
+            {loading ? (
+              <span className="inline-flex items-center gap-2">
+                <Spinner size={16} className="text-white" />
+                スライドを生成しています...
+              </span>
+            ) : (
+              "スライドを生成する"
+            )}
           </Button>
         </div>
       </Card>
 
       {loading && (
-        <Card className="mb-6 text-center text-gray-500 text-sm py-10">
-          AIがESを読み込んでスライドを組み立てています。しばらくお待ちください...
+        <Card className="mb-6 py-10">
+          <LoadingState
+            message="AIがESを読み込んでスライドを組み立てています"
+            hint="デザインの反映まで30秒ほどかかることがあります。そのままお待ちください。"
+          />
         </Card>
       )}
 

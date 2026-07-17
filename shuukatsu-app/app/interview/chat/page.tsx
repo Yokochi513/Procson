@@ -4,6 +4,7 @@ import { Suspense, useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { InterviewerPhoto } from "@/components/interview/InterviewerPhoto";
 import { MicButton } from "@/components/ui/MicButton";
+import { Spinner, LoadingDots } from "@/components/ui/Spinner";
 import {
   EvaluationRadar,
   type Evaluation,
@@ -261,7 +262,12 @@ function InterviewChat() {
           <InterviewerPhoto speaking={isSpeaking} size={176} />
 
           <p className="mt-4 text-white font-bold text-lg">面接官</p>
-          <p className="text-xs text-gray-300 mt-0.5">{currentStatus}</p>
+          <p className="text-xs text-gray-300 mt-0.5 flex items-center justify-center gap-1.5">
+            {currentStatus}
+            {(loading || evaluating || isSpeaking) && (
+              <LoadingDots className="text-orange-300" />
+            )}
+          </p>
 
           {/* 面接官の最新の発言（写真の真下） */}
           {latestInterviewerLine && !evaluation && (
@@ -271,7 +277,8 @@ function InterviewChat() {
           )}
 
           {loading && !latestInterviewerLine && (
-            <div className="mt-5 text-sm text-gray-300">
+            <div className="mt-5 flex items-center gap-2 text-sm text-gray-300">
+              <Spinner size={18} className="text-orange-300" />
               面接官が考えています…
             </div>
           )}
@@ -376,7 +383,8 @@ function InterviewChat() {
 
       {/* ===== 評価結果 ===== */}
       {evaluating && (
-        <div className="mt-6 text-center text-gray-500">
+        <div className="mt-6 flex items-center justify-center gap-3 text-gray-500">
+          <Spinner size={22} className="text-[#ff7a1a]" />
           面接官が総合評価を作成しています…
         </div>
       )}

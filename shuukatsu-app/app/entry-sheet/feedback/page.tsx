@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { Spinner, LoadingDots } from "@/components/ui/Spinner";
 import { entrySheetFields } from "@/lib/entrySheet/fields";
 import { EntrySheetAnswers } from "@/lib/entrySheet/types";
 import { loadEntrySheet } from "@/lib/entrySheet/storage";
@@ -122,7 +123,12 @@ export default function EntrySheetFeedbackPage() {
             <h2 className="text-xl font-bold text-gray-900 mb-2">
               🤖 AI面接官からのコメント
             </h2>
-            {aiComment ? (
+            {aiLoading ? (
+              <p className="text-[#ff7a1a] text-sm mb-3 flex items-center gap-2 font-semibold">
+                AI面接官があなたのESを読んでいます
+                <LoadingDots />
+              </p>
+            ) : aiComment ? (
               <p className="text-gray-700 whitespace-pre-wrap leading-7 text-sm">
                 {aiComment}
               </p>
@@ -133,11 +139,16 @@ export default function EntrySheetFeedbackPage() {
             )}
             <div className="mt-3">
               <Button onClick={requestAiComment} disabled={aiLoading}>
-                {aiLoading
-                  ? "考えています..."
-                  : aiComment
-                    ? "もう一度コメントをもらう"
-                    : "AI面接官にコメントをもらう"}
+                {aiLoading ? (
+                  <span className="inline-flex items-center gap-2">
+                    <Spinner size={16} className="text-white" />
+                    考えています...
+                  </span>
+                ) : aiComment ? (
+                  "もう一度コメントをもらう"
+                ) : (
+                  "AI面接官にコメントをもらう"
+                )}
               </Button>
             </div>
           </div>

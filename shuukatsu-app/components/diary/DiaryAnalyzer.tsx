@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { Spinner, LoadingState } from "@/components/ui/Spinner";
 import { MarkdownView } from "@/components/diary/MarkdownView";
 import { mockDiaryAnalysis } from "@/lib/diary/mock";
 import { DiaryAnalysisMode } from "@/lib/diary/types";
@@ -83,7 +84,14 @@ export function DiaryAnalyzer({
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
           <Button onClick={analyze} disabled={loading || !diary.trim()}>
-            {loading ? "分析しています..." : analyzeLabel}
+            {loading ? (
+              <span className="inline-flex items-center gap-2">
+                <Spinner size={16} className="text-white" />
+                分析しています...
+              </span>
+            ) : (
+              analyzeLabel
+            )}
           </Button>
           <Button
             variant="outline"
@@ -108,8 +116,11 @@ export function DiaryAnalyzer({
       </Card>
 
       {loading && (
-        <Card className="mb-6 text-center text-gray-500 text-sm py-10">
-          AIが日記を読み込んで分析しています。しばらくお待ちください...
+        <Card className="mb-6 py-10">
+          <LoadingState
+            message="AIが日記を読み込んで分析しています"
+            hint="内容量によっては30秒ほどかかることがあります。そのままお待ちください。"
+          />
         </Card>
       )}
 
