@@ -16,6 +16,7 @@ import logging
 import os
 import re
 import time
+from pathlib import Path
 from typing import Any, Literal, Optional
 
 import anthropic
@@ -95,6 +96,32 @@ class InterviewRequest(BaseModel):
 
 class EsFeedbackRequest(BaseModel):
     answers: dict[str, str] = {}
+
+
+class DiaryAnalysisRequest(BaseModel):
+    diary: str = ""
+    mode: str = ""
+
+
+class SlideTheme(BaseModel):
+    """ES→スライドの配色。lib/esSlides/theme.ts の SlideTheme と1対1。"""
+
+    navy: str
+    navy2: str
+    blue: str
+    line: str
+    ink: str
+    muted: str
+    card: str
+    cardBd: str
+    page: str
+    polyA: str
+    polyB: str
+
+
+class EsSlidesRequest(BaseModel):
+    es: str = ""
+    theme: Optional[SlideTheme] = None
 
 
 # ---------------------------------------------------------------------------
@@ -286,6 +313,131 @@ def mock_es_feedback(answers: dict[str, str]) -> str:
 
 
 # ---------------------------------------------------------------------------
+# 日記分析 / ESスライド生成 用ヘルパ
+# （フロントの lib/diary/*, lib/esSlides/* を移植。スキル定義は
+#   リポジトリの .claude/skills/ を Next.js 側と共有して読み込む）
+# ---------------------------------------------------------------------------
+
+# このファイル（shuukatu-app-back/main.py）から見たリポジトリルート。
+# 通常は 1つ上（例: /opt/Procson）に .claude/skills/ がある。
+# 念のため cwd 直下も候補にしておく（TS 版と同じ方針）。
+_SKILL_DIR_CANDIDATES = [
+    Path(__file__).resolve().parent.parent / ".claude" / "skills",
+    Path.cwd() / ".claude" / "skills",
+]
+
+# 日記分析モード → スキル名。フロントの lib/diary/types.ts と同期。
+DIARY_SKILLS = {
+    "gakuchika-seed": "gakuchika-seed-from-diary",
+    "interview-deepdive": "interview-deepdive-from-diary",
+}
+
+
+def _strip_frontmatter(markdown: str) -> str:
+    """先頭の YAML フロントマター（--- ... ---）を除いた本文を返す。"""
+    match = re.match(r"^---\r?\n[\s\S]*?\r?\n---\r?\n", markdown)
+    return markdown[match.end():] if match else markdown
+
+
+def read_skill_file(skill_name: str, *relative_parts: str) -> str:
+    """.claude/skills/<skill_name>/<relative_parts...> を読み込む。"""
+    for base in _SKILL_DIR_CANDIDATES:
+        candidate = base.joinpath(skill_name, *relative_parts)
+        try:
+            return candidate.read_text(encoding="utf-8")
+        except OSError:
+            continue  # 次の候補を試す
+    raise FileNotFoundError(
+        f"skill file not found: {skill_name}/{'/'.join(relative_parts)}"
+    )
+
+
+def load_diary_skill_prompt(mode: str) -> str:
+    """日記分析スキルの SKILL.md 本文（システムプロンプト）を返す。"""
+    skill_name = DIARY_SKILLS[mode]
+    return _strip_frontmatter(read_skill_file(skill_name, "SKILL.md")).strip()
+
+
+def build_es_slides_prompt(theme: SlideTheme) -> str:
+    """
+    .claude/skills/es-slides/ 一式からシステムプロンプトを組み立てる。
+    lib/esSlides/skill.ts の buildEsSlidesPrompt と同一内容。
+    """
+    skill = read_skill_file("es-slides", "SKILL.md")
+    design_system = read_skill_file("es-slides", "references", "design-system.md")
+    content_guide = read_skill_file("es-slides", "references", "content-guide.md")
+    template = read_skill_file("es-slides", "assets", "slide-template.html")
+
+    return f"""{_strip_frontmatter(skill).strip()}
+
+---
+
+# references/design-system.md
+
+{design_system.strip()}
+
+---
+
+# references/content-guide.md
+
+{content_guide.strip()}
+
+---
+
+# assets/slide-template.html
+
+```html
+{template.strip()}
+```
+
+---
+
+# このAPI実行環境での追加ルール（最優先）
+
+あなたはWebアプリのAPIとして1回の応答でスライドHTMLを完成させる。対話はできない。
+
+- **フェーズ1（デザインヒアリング）は実施しない。** 配色は利用者が選択済みで、下記のHEXを使う。
+  slide-template.html の `:root` のCSS変数を、この値でそのまま置き換えること。
+  - --navy: {theme.navy}
+  - --navy-2: {theme.navy2}
+  - --blue: {theme.blue}
+  - --line: {theme.line}
+  - --ink: {theme.ink}
+  - --muted: {theme.muted}
+  - --card: {theme.card}
+  - --card-bd: {theme.cardBd}
+  - --page: {theme.page}
+  - --poly-a: {theme.polyA}
+  - --poly-b: {theme.polyB}
+- **フェーズ4・5（pptx書き出し・整合確認）は実施しない。** 成果物はHTMLのみ。
+- 本文はフェーズ2（content-guide.md）に従い、ユーザーが送るESから作る。事実を創作せず、
+  ESに無い固有情報（大学名・氏名等）は「○○大学」「氏名」等のプレースホルダのまま残す。
+- 出力は **slide-template.html と同じ構造の完全なHTMLドキュメントのみ**。
+  `<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>就活スライド</title><style>…</style></head><body>…</body></html>` の形にする。
+  説明文・前置き・Markdownのコードフェンスは一切付けない。1文字目から `<!doctype html>` で始めること。"""
+
+
+_HEX_PATTERN = re.compile(r"^#[0-9a-fA-F]{6}$")
+
+
+def is_valid_theme(theme: Optional[SlideTheme]) -> bool:
+    """テーマ全体が正しい HEX 値で構成されているか検証する。"""
+    if theme is None:
+        return False
+    return all(bool(_HEX_PATTERN.match(v)) for v in theme.model_dump().values())
+
+
+def extract_html(raw: str) -> Optional[str]:
+    """モデル応答から HTML ドキュメント本体を取り出す（フェンス混入にも対応）。"""
+    fenced = re.search(r"```(?:html)?\s*([\s\S]*?)```", raw)
+    candidate = (fenced.group(1) if fenced else raw).strip()
+    match = re.search(r"<!doctype html", candidate, re.IGNORECASE)
+    if not match:
+        return None
+    return candidate[match.start():]
+
+
+# ---------------------------------------------------------------------------
 # FastAPI アプリ
 # ---------------------------------------------------------------------------
 
@@ -446,4 +598,94 @@ def es_feedback(body: EsFeedbackRequest) -> JSONResponse:
         # 失敗時はモックにフォールバック
         return JSONResponse(
             {"comment": mock_es_feedback(answers), "source": "mock-fallback"}
+        )
+
+
+@app.post("/api/diary-analysis")
+def diary_analysis(body: DiaryAnalysisRequest) -> JSONResponse:
+    """日記を分析して、ガクチカの種 / 面接深掘り質問 を Markdown で返す。"""
+    if body.mode not in DIARY_SKILLS:
+        return JSONResponse({"error": "invalid mode"}, status_code=400)
+    if not body.diary.strip():
+        return JSONResponse({"error": "diary is empty"}, status_code=400)
+
+    # キー未設定時はフロント側がバンドル済みのモックを表示するため、ここでは明示エラーを返す。
+    if not get_api_key():
+        return JSONResponse(
+            {"error": "APIキーが設定されていません（.env の api_key を確認してください）。"},
+            status_code=503,
+        )
+
+    try:
+        client = get_client()
+        response = client.messages.create(
+            model=MODEL,
+            max_tokens=4096,
+            system=load_diary_skill_prompt(body.mode),
+            messages=[
+                {
+                    "role": "user",
+                    "content": (
+                        "以下は就活生が書いた日記です。スキルの手順に従って分析し、"
+                        "指定の出力フォーマットのMarkdownだけを出力してください。\n\n"
+                        f"{body.diary}"
+                    ),
+                }
+            ],
+        )
+        return JSONResponse(
+            {"result": response_text(response).strip(), "source": "claude"}
+        )
+
+    except Exception:
+        logger.exception("diary-analysis error")
+        return JSONResponse(
+            {"error": "日記分析の呼び出しに失敗しました。時間をおいて再度お試しください。"},
+            status_code=500,
+        )
+
+
+@app.post("/api/es-slides")
+def es_slides(body: EsSlidesRequest) -> JSONResponse:
+    """ESの文章と配色テーマから、就活スライド3枚分の完全なHTMLを生成して返す。"""
+    if not is_valid_theme(body.theme):
+        return JSONResponse({"error": "invalid theme"}, status_code=400)
+    if not body.es.strip():
+        return JSONResponse({"error": "es is empty"}, status_code=400)
+
+    if not get_api_key():
+        return JSONResponse(
+            {"error": "APIキーが設定されていません（.env の api_key を確認してください）。"},
+            status_code=503,
+        )
+
+    try:
+        client = get_client()
+        response = client.messages.create(
+            model=MODEL,
+            max_tokens=16384,
+            system=build_es_slides_prompt(body.theme),
+            messages=[
+                {
+                    "role": "user",
+                    "content": (
+                        "以下は就活生のエントリーシートです。スキルの手順（フェーズ2〜3）に"
+                        "従って3枚のスライドを作り、完全なHTMLドキュメントだけを出力してください。\n\n"
+                        f"{body.es}"
+                    ),
+                }
+            ],
+        )
+
+        html = extract_html(response_text(response))
+        if not html:
+            raise ValueError("response did not contain an HTML document")
+
+        return JSONResponse({"html": html, "source": "claude"})
+
+    except Exception:
+        logger.exception("es-slides error")
+        return JSONResponse(
+            {"error": "スライド生成の呼び出しに失敗しました。時間をおいて再度お試しください。"},
+            status_code=500,
         )

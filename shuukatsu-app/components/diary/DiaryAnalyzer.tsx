@@ -6,8 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { MarkdownView } from "@/components/diary/MarkdownView";
 import { mockDiaryAnalysis } from "@/lib/diary/mock";
 import { DiaryAnalysisMode } from "@/lib/diary/types";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+import { apiUrl } from "@/lib/ai/apiBase";
 
 const placeholder = `例：
 ## Day1（4月8日）
@@ -46,7 +45,7 @@ export function DiaryAnalyzer({
     setResult(null);
     setSource(null);
     try {
-      const res = await fetch(`${basePath}/api/diary-analysis`, {
+      const res = await fetch(apiUrl("/api/diary-analysis"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ diary, mode }),

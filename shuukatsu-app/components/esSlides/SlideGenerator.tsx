@@ -12,8 +12,7 @@ import {
 } from "@/lib/esSlides/theme";
 import { entrySheetFields } from "@/lib/entrySheet/fields";
 import { loadEntrySheet } from "@/lib/entrySheet/storage";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+import { apiUrl } from "@/lib/ai/apiBase";
 
 const placeholder = `例：
 【自己PR】
@@ -79,7 +78,7 @@ export function SlideGenerator() {
     setHtml(null);
     setSource(null);
     try {
-      const res = await fetch(`${basePath}/api/es-slides`, {
+      const res = await fetch(apiUrl("/api/es-slides"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ es, theme }),
