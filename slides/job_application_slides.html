@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>就活スライド プレビュー｜自己紹介・志望動機・自己PR</title>
+<style>
+  :root{
+    --navy:#17456B;        /* ヘッダーバー・見出し */
+    --navy-dark:#123A5C;
+    --accent:#1E86CB;      /* 明るいアクセントブルー */
+    --accent-strong:#0E6FB5;
+    --text:#333333;
+    --text-sub:#5B6B79;
+    --bg-page:#e9eef3;
+    --card-border:#E1E8EF;
+    --line:#C9D6E2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;
+    background:var(--bg-page);
+    color:var(--text);
+    padding:40px 20px 80px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .toolbar{
+    max-width:1280px;margin:0 auto 28px;text-align:center;color:#44586a;
+  }
+  .toolbar h1{font-size:22px;color:var(--navy);margin-bottom:6px;}
+  .toolbar p{font-size:15px;}
+  .slide-label{
+    max-width:1280px;margin:36px auto 10px;font-size:15px;color:#6b7c8b;font-weight:bold;
+  }
+
+  /* ===== スライド共通（16:9 / 1280x720） ===== */
+  .slide{
+    position:relative;
+    width:1280px;max-width:100%;
+    aspect-ratio:16/9;
+    margin:0 auto;
+    background:#ffffff;
+    border-radius:6px;
+    overflow:hidden;
+    box-shadow:0 10px 30px rgba(20,50,80,.14);
+  }
+  /* ロー ポリ背景（淡いブルーの幾何学テクスチャ） */
+  .poly-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
+
+  .slide-inner{position:relative;z-index:2;height:100%;padding:52px 64px 48px;display:flex;flex-direction:column;}
+
+  /* 見出し（▶ ＋ 下線） */
+  .slide-title{display:flex;align-items:center;gap:14px;padding-bottom:16px;border-bottom:2px solid var(--line);}
+  .slide-title .mark{
+    width:0;height:0;border-style:solid;border-width:11px 0 11px 17px;
+    border-color:transparent transparent transparent var(--navy);
+  }
+  .slide-title h2{font-size:32px;color:var(--navy);font-weight:800;letter-spacing:.02em;}
+
+  /* ================= ① 自己紹介 ================= */
+  .intro-body{flex:1;display:flex;gap:40px;padding-top:34px;}
+  .intro-left{flex:0 0 360px;display:flex;flex-direction:column;}
+  .name-card{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);
+    color:#fff;border-radius:10px;padding:34px 30px;box-shadow:0 8px 18px rgba(18,58,92,.22);
+  }
+  .name-card .univ{font-size:19px;line-height:1.7;opacity:.92;}
+  .name-card .dept{font-size:19px;line-height:1.7;opacity:.92;margin-bottom:14px;}
+  .name-card .name-label{font-size:18px;opacity:.8;letter-spacing:.3em;margin-bottom:4px;}
+  .name-card .name{font-size:44px;font-weight:800;letter-spacing:.06em;}
+  .name-card .name .ruby{display:block;font-size:18px;font-weight:400;opacity:.8;letter-spacing:.2em;margin-top:6px;}
+  .tags{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;}
+  .tag{background:#eaf3fa;color:var(--accent-strong);border:1px solid #cfe4f4;border-radius:20px;padding:8px 16px;font-size:18px;font-weight:700;}
+
+  .intro-right{flex:1;display:flex;flex-direction:column;gap:20px;}
+  .info-block{background:#fff;border:1px solid var(--card-border);border-left:5px solid var(--accent);border-radius:8px;padding:20px 24px;box-shadow:0 3px 10px rgba(20,50,80,.05);}
+  .info-block .h{font-size:19px;font-weight:800;color:var(--navy);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+  .info-block .h::before{content:"";width:9px;height:9px;background:var(--accent);border-radius:50%;display:inline-block;}
+  .info-block p{font-size:19px;line-height:1.75;color:var(--text);}
+  .info-block .em{color:var(--accent-strong);font-weight:800;}
+
+  /* ================= ② 志望動機 ================= */
+  .center-lead{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-bottom:20px;}
+  .lead-eyebrow{font-size:20px;color:var(--accent-strong);font-weight:800;letter-spacing:.12em;margin-bottom:26px;}
+  .lead-oneline{
+    font-size:46px;font-weight:800;color:var(--navy);line-height:1.5;max-width:1000px;
+  }
+  .lead-oneline .hl{
+    background:linear-gradient(transparent 62%, #bfe0f5 62%);padding:0 4px;
+  }
+  .lead-note{
+    margin-top:40px;background:#f3f8fc;border:1px solid #d7e7f3;border-radius:10px;
+    padding:22px 34px;max-width:820px;
+  }
+  .lead-note .cap{font-size:18px;color:var(--accent-strong);font-weight:800;margin-bottom:8px;letter-spacing:.08em;}
+  .lead-note p{font-size:22px;line-height:1.7;color:var(--text);font-weight:700;}
+
+  /* ================= ③ 自己PR ================= */
+  .pr-body{flex:1;display:flex;flex-direction:column;padding-top:30px;gap:26px;}
+  .pr-strength{
+    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-dark) 100%);
+    color:#fff;border-radius:12px;padding:30px 40px;text-align:center;box-shadow:0 8px 20px rgba(18,58,92,.2);
+  }
+  .pr-strength .cap{font-size:18px;opacity:.85;letter-spacing:.2em;margin-bottom:12px;}
+  .pr-strength .txt{font-size:38px;font-weight:800;line-height:1.4;}
+  .pr-strength .quote{color:#8fd0f7;}
+  .pr-cols{display:flex;gap:26px;flex:1;}
+  .pr-card{flex:1;background:#fff;border:1px solid var(--card-border);border-radius:10px;overflow:hidden;box-shadow:0 4px 12px rgba(20,50,80,.07);display:flex;flex-direction:column;}
+  .pr-card .head{background:var(--navy);color:#fff;font-size:20px;font-weight:800;text-align:center;padding:14px 10px;}
+  .pr-card .body{padding:24px 26px;flex:1;display:flex;flex-direction:column;justify-content:center;}
+  .pr-card .body p{font-size:21px;line-height:1.7;color:var(--text);font-weight:700;}
+  .pr-card .body .em{color:var(--accent-strong);font-weight:800;}
+  .pr-card.effect .head{background:var(--accent-strong);}
+
+  /* 画面上のスライド番号 */
+  .pagenum{position:absolute;right:26px;bottom:18px;z-index:3;font-size:16px;color:#9fb0bd;font-weight:700;}
+
+  @media (max-width:820px){
+    .slide-inner{padding:30px 26px;}
+    .slide-title h2{font-size:24px;}
+    .intro-body{flex-direction:column;gap:20px;}
+    .intro-left{flex:none;}
+    .pr-cols{flex-direction:column;}
+    .lead-oneline{font-size:30px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <h1>就活スライド プレビュー</h1>
+  <p>ES に基づく3種類のレイアウト（① 自己紹介／② 志望動機／③ 自己PR）</p>
+</div>
+
+<!-- ============ ① 自己紹介 ============ -->
+<div class="slide-label">① 自己紹介</div>
+<div class="slide">
+  <svg class="poly-bg" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eef4f9"/>
+    </linearGradient></defs>
+    <rect width="1280" height="720" fill="url(#g1)"/>
+    <g opacity="0.5">
+      <polygon points="0,0 220,0 90,150" fill="#dfeaf3"/>
+      <polygon points="220,0 90,150 260,180" fill="#e8f0f7"/>
+      <polygon points="1280,720 1060,720 1200,560" fill="#dfeaf3"/>
+      <polygon points="1060,720 1200,560 1010,600" fill="#e8f0f7"/>
+      <polygon points="1280,0 1120,0 1280,140" fill="#eaf1f8"/>
+      <polygon points="0,720 0,560 160,720" fill="#eaf1f8"/>
+    </g>
+  </svg>
+  <div class="slide-inner">
+    <div class="slide-title"><span class="mark"></span><h2>自己紹介</h2></div>
+    <div class="intro-body">
+      <div class="intro-left">
+        <div class="name-card">
+          <div class="univ">○○大学　○○学部</div>
+          <div class="dept">○○学科　4年</div>
+          <div class="name-label">NAME</div>
+          <div class="name">田中 太郎<span class="ruby">TANAKA　TARO</span></div>
+        </div>
+        <div class="tags">
+          <span class="tag"># 社会学専攻</span>
+          <span class="tag"># 独学プログラミング</span>
+          <span class="tag"># 文系出身</span>
+        </div>
+      </div>
+      <div class="intro-right">
+        <div class="info-block">
+          <div class="h">研究内容</div>
+          <p>社会学を専攻し、<span class="em">地域コミュニティにおける情報格差</span>の問題をテーマに研究。</p>
+        </div>
+        <div class="info-block">
+          <div class="h">研究を通して感じたこと</div>
+          <p>ITツールが人々の生活を変える可能性を実感し、<span class="em">「使う側」から「作る側」へ</span>回りたいと考えるように。</p>
+        </div>
+        <div class="info-block">
+          <div class="h">現在行っていること</div>
+          <p>文系出身ながら、<span class="em">独学でプログラミングの基礎</span>を学習中。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">01</div>
+</div>
+
+<!-- ============ ② 志望動機 ============ -->
+<div class="slide-label">② 志望動機</div>
+<div class="slide">
+  <svg class="poly-bg" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eef4f9"/>
+    </linearGradient></defs>
+    <rect width="1280" height="720" fill="url(#g2)"/>
+    <g opacity="0.5">
+      <polygon points="0,0 220,0 90,150" fill="#dfeaf3"/>
+      <polygon points="220,0 90,150 260,180" fill="#e8f0f7"/>
+      <polygon points="1280,720 1060,720 1200,560" fill="#dfeaf3"/>
+      <polygon points="1060,720 1200,560 1010,600" fill="#e8f0f7"/>
+      <polygon points="1280,0 1120,0 1280,140" fill="#eaf1f8"/>
+      <polygon points="0,720 0,560 160,720" fill="#eaf1f8"/>
+    </g>
+  </svg>
+  <div class="slide-inner">
+    <div class="slide-title"><span class="mark"></span><h2>志望動機</h2></div>
+    <div class="center-lead">
+      <div class="lead-eyebrow">MY MOTIVATION</div>
+      <div class="lead-oneline">
+        <span class="hl">ユーザー視点のものづくり</span>に、<br>強く共感したからです。
+      </div>
+      <div class="lead-note">
+        <div class="cap">── 補足</div>
+        <p>研究で培った「人間理解」の視点を活かせると感じたため。</p>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">02</div>
+</div>
+
+<!-- ============ ③ 自己PR ============ -->
+<div class="slide-label">③ 自己PR</div>
+<div class="slide">
+  <svg class="poly-bg" viewBox="0 0 1280 720" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <defs><linearGradient id="g3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eef4f9"/>
+    </linearGradient></defs>
+    <rect width="1280" height="720" fill="url(#g3)"/>
+    <g opacity="0.5">
+      <polygon points="0,0 220,0 90,150" fill="#dfeaf3"/>
+      <polygon points="220,0 90,150 260,180" fill="#e8f0f7"/>
+      <polygon points="1280,720 1060,720 1200,560" fill="#dfeaf3"/>
+      <polygon points="1060,720 1200,560 1010,600" fill="#e8f0f7"/>
+      <polygon points="1280,0 1120,0 1280,140" fill="#eaf1f8"/>
+      <polygon points="0,720 0,560 160,720" fill="#eaf1f8"/>
+    </g>
+  </svg>
+  <div class="slide-inner">
+    <div class="slide-title"><span class="mark"></span><h2>自己PR</h2></div>
+    <div class="pr-body">
+      <div class="pr-strength">
+        <div class="cap">MY STRENGTH ── 私の強み</div>
+        <div class="txt"><span class="quote">「</span>課題を分解し、周囲を巻き込みながら解決に導く力<span class="quote">」</span></div>
+      </div>
+      <div class="pr-cols">
+        <div class="pr-card">
+          <div class="head">根拠となる経験</div>
+          <div class="body">
+            <p>アンケート集計を自動化し、<span class="em">作業時間を6割削減</span>。</p>
+          </div>
+        </div>
+        <div class="pr-card effect">
+          <div class="head">入社後の活かし方</div>
+          <div class="body">
+            <p>複雑な要件を<span class="em">構造的に整理</span>し、開発現場で貢献。</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">03</div>
+</div>
+
+</body>
+</html>
