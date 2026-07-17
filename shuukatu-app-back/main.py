@@ -32,7 +32,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 logger = logging.getLogger("shuukatsu-back")
 
 # 面接AIに使用するモデル（chat/evaluate/ES共通。フロント実装と同じ）
-MODEL = "claude-sonnet-5"
+MODEL = "claude-opus-4.8"
 
 # ---------------------------------------------------------------------------
 # フロントエンド（lib/interview/interviewFlow.ts, lib/entrySheet/fields.ts）
@@ -254,7 +254,10 @@ EVALUATION_SCHEMA = {
         "logical": {"type": "integer", "description": "論理性 0〜100"},
         "specific": {"type": "integer", "description": "具体性 0〜100"},
         "passion": {"type": "integer", "description": "熱意 0〜100"},
-        "communication": {"type": "integer", "description": "コミュニケーション力 0〜100"},
+        "communication": {
+            "type": "integer",
+            "description": "コミュニケーション力 0〜100",
+        },
         "total": {"type": "integer", "description": "総合評価 0〜100"},
         "summary": {"type": "string", "description": "全体の総評（2〜3文）"},
         "improvements": {
@@ -336,7 +339,7 @@ DIARY_SKILLS = {
 def _strip_frontmatter(markdown: str) -> str:
     """先頭の YAML フロントマター（--- ... ---）を除いた本文を返す。"""
     match = re.match(r"^---\r?\n[\s\S]*?\r?\n---\r?\n", markdown)
-    return markdown[match.end():] if match else markdown
+    return markdown[match.end() :] if match else markdown
 
 
 def read_skill_file(skill_name: str, *relative_parts: str) -> str:
@@ -434,7 +437,7 @@ def extract_html(raw: str) -> Optional[str]:
     match = re.search(r"<!doctype html", candidate, re.IGNORECASE)
     if not match:
         return None
-    return candidate[match.start():]
+    return candidate[match.start() :]
 
 
 # ---------------------------------------------------------------------------
@@ -465,7 +468,9 @@ def health() -> dict[str, Any]:
 def interview(body: InterviewRequest) -> JSONResponse:
     if not get_api_key():
         return JSONResponse(
-            {"error": "APIキーが設定されていません（.env の api_key を確認してください）。"},
+            {
+                "error": "APIキーが設定されていません（.env の api_key を確認してください）。"
+            },
             status_code=500,
         )
 
@@ -496,7 +501,9 @@ def interview(body: InterviewRequest) -> JSONResponse:
             if response.stop_reason == "max_tokens":
                 logger.error("Evaluation truncated by max_tokens")
                 return JSONResponse(
-                    {"error": "評価の生成が途中で終了しました。もう一度お試しください。"},
+                    {
+                        "error": "評価の生成が途中で終了しました。もう一度お試しください。"
+                    },
                     status_code=500,
                 )
 
@@ -550,7 +557,9 @@ def interview(body: InterviewRequest) -> JSONResponse:
     except Exception:
         logger.exception("Interview API error")
         return JSONResponse(
-            {"error": "面接AIの呼び出しに失敗しました。時間をおいて再度お試しください。"},
+            {
+                "error": "面接AIの呼び出しに失敗しました。時間をおいて再度お試しください。"
+            },
             status_code=500,
         )
 
@@ -612,7 +621,9 @@ def diary_analysis(body: DiaryAnalysisRequest) -> JSONResponse:
     # キー未設定時はフロント側がバンドル済みのモックを表示するため、ここでは明示エラーを返す。
     if not get_api_key():
         return JSONResponse(
-            {"error": "APIキーが設定されていません（.env の api_key を確認してください）。"},
+            {
+                "error": "APIキーが設定されていません（.env の api_key を確認してください）。"
+            },
             status_code=503,
         )
 
@@ -640,7 +651,9 @@ def diary_analysis(body: DiaryAnalysisRequest) -> JSONResponse:
     except Exception:
         logger.exception("diary-analysis error")
         return JSONResponse(
-            {"error": "日記分析の呼び出しに失敗しました。時間をおいて再度お試しください。"},
+            {
+                "error": "日記分析の呼び出しに失敗しました。時間をおいて再度お試しください。"
+            },
             status_code=500,
         )
 
@@ -655,7 +668,9 @@ def es_slides(body: EsSlidesRequest) -> JSONResponse:
 
     if not get_api_key():
         return JSONResponse(
-            {"error": "APIキーが設定されていません（.env の api_key を確認してください）。"},
+            {
+                "error": "APIキーが設定されていません（.env の api_key を確認してください）。"
+            },
             status_code=503,
         )
 
@@ -686,6 +701,8 @@ def es_slides(body: EsSlidesRequest) -> JSONResponse:
     except Exception:
         logger.exception("es-slides error")
         return JSONResponse(
-            {"error": "スライド生成の呼び出しに失敗しました。時間をおいて再度お試しください。"},
+            {
+                "error": "スライド生成の呼び出しに失敗しました。時間をおいて再度お試しください。"
+            },
             status_code=500,
         )
