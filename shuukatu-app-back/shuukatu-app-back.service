@@ -1,0 +1,27 @@
+# systemd ユニットファイル（Raspberry Pi 用）
+#
+# 配置:   sudo cp shuukatu-app-back.service /etc/systemd/system/
+# 有効化: sudo systemctl daemon-reload
+#         sudo systemctl enable --now shuukatu-app-back
+# 確認:   systemctl status shuukatu-app-back
+#         journalctl -u shuukatu-app-back -f
+#
+# ※ User / WorkingDirectory / ExecStart のパスは実際の配置に合わせて変更すること。
+
+[Unit]
+Description=shuukatsu-app backend (Claude API proxy)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/Procson/shuukatu-app-back
+# .env は main.py 側でも読むが、systemd からも渡しておく（存在しなくてもよいよう - 付き）
+EnvironmentFile=-/home/pi/Procson/shuukatu-app-back/.env
+ExecStart=/home/pi/Procson/shuukatu-app-back/.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

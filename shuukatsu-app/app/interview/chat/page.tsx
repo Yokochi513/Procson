@@ -14,6 +14,7 @@ import { loadCompanies } from "@/lib/loadCompanies";
 import { loadEntrySheet } from "@/lib/entrySheet/storage";
 import { entrySheetFields } from "@/lib/entrySheet/fields";
 import type { EntrySheetAnswers } from "@/lib/entrySheet/types";
+import { apiUrl } from "@/lib/ai/apiBase";
 
 interface ChatMessage {
   role: "interviewer" | "user";
@@ -92,7 +93,7 @@ function InterviewChat() {
     setEvaluating(true);
     setError("");
     try {
-      const res = await fetch("/api/interview", {
+      const res = await fetch(apiUrl("/api/interview"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -124,7 +125,7 @@ function InterviewChat() {
     setLoading(true);
     setError("");
     try {
-      const res = await fetch("/api/interview", {
+      const res = await fetch(apiUrl("/api/interview"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

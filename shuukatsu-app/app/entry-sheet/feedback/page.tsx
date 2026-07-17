@@ -11,8 +11,7 @@ import { calculateEntrySheetScore, EntrySheetScore } from "@/lib/entrySheet/scor
 import { generateEntrySheetFeedback } from "@/lib/entrySheet/feedback";
 import { mockEsFeedback } from "@/lib/ai/esFeedbackMock";
 import { InterviewerAvatar } from "@/components/interview/InterviewerAvatar";
-
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+import { apiUrl } from "@/lib/ai/apiBase";
 
 const scoreItems: { key: keyof EntrySheetScore; label: string }[] = [
   { key: "volume", label: "分量" },
@@ -34,7 +33,7 @@ export default function EntrySheetFeedbackPage() {
     setAiLoading(true);
     setAiComment(null);
     try {
-      const res = await fetch(`${basePath}/api/es-feedback`, {
+      const res = await fetch(apiUrl("/api/es-feedback"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ answers }),
