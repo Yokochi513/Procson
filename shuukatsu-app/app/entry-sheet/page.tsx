@@ -12,6 +12,7 @@ import {
   saveEntrySheet,
   clearEntrySheet,
 } from "@/lib/entrySheet/storage";
+import { entrySheetTemplate } from "@/lib/entrySheet/templates";
 
 export default function EntrySheetPage() {
   const [answers, setAnswers] = useState<EntrySheetAnswers>({});
@@ -38,14 +39,40 @@ export default function EntrySheetPage() {
     setSaved(false);
   };
 
+  /** テスト・記入例用のテンプレートを一括入力する */
+  const handleTemplate = () => {
+    const hasContent = entrySheetFields.some((f) => (answers[f.id] ?? "").trim());
+    if (
+      hasContent &&
+      !confirm("入力済みの内容をテンプレートで上書きします。よろしいですか？")
+    ) {
+      return;
+    }
+    setAnswers({ ...entrySheetTemplate });
+    setSaved(false);
+  };
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
       <h1 className="text-3xl font-black text-gray-900 mb-2">
         エントリーシート作成
       </h1>
-      <p className="text-gray-500 mb-8">
+      <p className="text-gray-500 mb-4">
         項目ごとに入力し、保存できます。内容はブラウザに自動で保存されます。
       </p>
+
+      {/* テスト・記入例用のテンプレート一括入力 */}
+      <div className="mb-8 bg-orange-50 border border-orange-200 rounded-xl p-4 flex flex-wrap items-center justify-between gap-3">
+        <p className="text-sm text-gray-700">
+          📝 書き方に迷ったら、記入例のテンプレートを入れて編集できます。
+          <span className="block text-xs text-gray-500 mt-0.5">
+            （動作確認用のサンプルとしても使えます）
+          </span>
+        </p>
+        <Button size="sm" variant="secondary" onClick={handleTemplate}>
+          テンプレートを入力
+        </Button>
+      </div>
 
       <div className="space-y-6">
         {entrySheetFields.map((field) => {
