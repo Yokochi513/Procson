@@ -330,12 +330,12 @@ function InterviewChat() {
             onClick={() => setShowSample((v) => !v)}
             className="text-sm font-semibold text-[#ff7a1a] hover:underline cursor-pointer"
           >
-            {showSample ? "▲ 模範解答を隠す" : "▼ この質問の模範解答を見る"}
+            {showSample ? "▲ 回答例を隠す" : "▼ この質問の回答例を見る"}
           </button>
           {showSample && (
             <div className="mt-2 bg-orange-50 border border-orange-200 rounded-lg p-4 text-sm leading-6 text-gray-700">
               <div className="font-semibold text-[#0e2149] mb-1">
-                模範解答（{sample.label}）
+                回答例（{sample.label}）
               </div>
               {sample.sampleAnswer}
             </div>
