@@ -23,6 +23,9 @@ jobs:
     env:
       STATIC_EXPORT: 'true'
       NEXT_PUBLIC_BASE_PATH: /Procson
+      # 外部バックエンド（shuukatu-app-back / Cloudflare Tunnel）を叩かせる。
+      # 未設定だと apiUrl() が同一オリジン(=静的404)にフォールバックしモックのままになる。
+      NEXT_PUBLIC_API_BASE: https://shuukatsu-back.dreamyard.cc
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -32,11 +35,9 @@ jobs:
           cache-dependency-path: shuukatsu-app/package-lock.json
       - run: npm ci
         working-directory: shuukatsu-app
-      # 静的書き出しに API ルートは含められないため、ビルド前に取り除く。
-      # ES の AI コメントはクライアント側のモックにフォールバックする。
-      - run: rm -rf app/api
-        working-directory: shuukatsu-app
-      - run: npm run build
+      # build:static が app/api（静的書き出し非対応の動的ルート）を退避してから
+      # next build を実行する。
+      - run: npm run build:static
         working-directory: shuukatsu-app
       - run: touch shuukatsu-app/out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
