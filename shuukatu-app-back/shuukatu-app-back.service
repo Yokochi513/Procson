@@ -15,11 +15,12 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=pi
-WorkingDirectory=/home/pi/Procson/shuukatu-app-back
+User=yokochi
+Group=yokochi
+WorkingDirectory=/opt/Procson/shuukatu-app-back
 # .env は main.py 側でも読むが、systemd からも渡しておく（存在しなくてもよいよう - 付き）
-EnvironmentFile=-/home/pi/Procson/shuukatu-app-back/.env
-ExecStart=/home/pi/Procson/shuukatu-app-back/.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
+EnvironmentFile=-/opt/Procson/shuukatu-app-back/.env
+ExecStart=/opt/Procson/shuukatu-app-back/.venv/bin/uvicorn main:app --host 0.0.0.0 --port 8000
 Restart=always
 RestartSec=5
 
