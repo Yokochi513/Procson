@@ -127,9 +127,12 @@ export default function EntrySheetPage() {
         </div>
       </div>
 
-      <div className="text-center mt-6">
+      <div className="text-center mt-6 flex flex-wrap justify-center gap-3">
         <Link href="/entry-sheet/feedback">
           <Button variant="secondary">💡 フィードバックを見る</Button>
+        </Link>
+        <Link href="/entry-sheet/slides">
+          <Button variant="secondary">📊 スライドを作る</Button>
         </Link>
       </div>
     </div>

@@ -12,7 +12,7 @@ const tools = [
     href: "/entry-sheet",
     icon: "🖊️",
     title: "エントリーシート作成",
-    desc: "自己PR・志望動機・ガクチカをじっくり作成できます。",
+    desc: "自己PR・志望動機・ガクチカを作成し、発表用スライドにも変換できます。",
   },
   {
     href: "/diary",
