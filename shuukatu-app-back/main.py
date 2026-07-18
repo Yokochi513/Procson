@@ -32,7 +32,7 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 logger = logging.getLogger("shuukatsu-back")
 
 # 面接AIに使用するモデル（chat/evaluate/ES共通。フロント実装と同じ）
-MODEL = "claude-opus-4.8"
+MODEL = "claude-opus-4-8"
 
 # ---------------------------------------------------------------------------
 # フロントエンド（lib/interview/interviewFlow.ts, lib/entrySheet/fields.ts）
