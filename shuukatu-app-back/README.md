@@ -16,10 +16,11 @@ Python (FastAPI) に移植したもので、リクエスト/レスポンスの J
 | POST | `/api/es-slides` | ES→就活スライドHTML生成（`theme` に配色HEX） |
 | GET | `/health` | 死活確認（APIキー設定有無も返す） |
 
-`/api/diary-analysis` と `/api/es-slides` は、リポジトリの `.claude/skills/`
-（`gakuchika-seed-from-diary` / `interview-deepdive-from-diary` / `es-slides`）を
+`/api/diary-analysis` は、リポジトリの `.claude/skills/`
+（`gakuchika-seed-from-diary` / `interview-deepdive-from-diary`）を、
+`/api/es-slides` はリポジトリ直下の `skill_es-presentation/` を
 システムプロンプトとして読み込む。スキルはフロントと共有しており、
-バックエンドはリポジトリルート（このディレクトリの1つ上）の `.claude/skills/` を参照する。
+バックエンドはリポジトリルート（このディレクトリの1つ上）を参照する。
 キー未設定・生成失敗時はエラーを返し、フロント側がバンドル済みのモックを表示する。
 
 ## セットアップ（Raspberry Pi）

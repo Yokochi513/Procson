@@ -29,7 +29,7 @@ const placeholder = `例：
 type ThemeChoice = ThemePresetId | "brand";
 
 /**
- * ESを貼り付け／読み込みして、スキル（.claude/skills/es-slides/）による
+ * ESを貼り付け／読み込みして、スキル（skill_es-presentation/）による
  * 就活スライド3枚（①自己紹介②志望動機③自己PR）のHTMLを生成・表示する。
  */
 export function SlideGenerator() {

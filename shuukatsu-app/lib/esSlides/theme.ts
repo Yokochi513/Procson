@@ -1,7 +1,8 @@
 /**
  * ES→スライド生成のデザインテーマ。
- * .claude/skills/es-slides/references/design-system.md の配色変数と1対1で対応する。
- * スキルのフェーズ1（デザインヒアリング）をアプリ上ではプリセット選択で代替する。
+ * skill_es-presentation/references/design.md の配色の役割（メイン・アクセント・
+ * 本文・背景・カード・ローポリ装飾）に対応する。
+ * スキルのテンプレートヒアリングをアプリ上ではプリセット選択で代替する。
  */
 export type SlideTheme = {
   /** 見出しボックス／タイトル文字 */

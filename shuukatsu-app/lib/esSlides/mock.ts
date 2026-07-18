@@ -2,8 +2,8 @@ import { SlideTheme } from "./theme";
 
 /**
  * ダミーのスライドHTML（APIキーが無いとき・静的配信のとき用）。
- * .claude/skills/es-slides/assets/slide-template.html と同じ構造のサンプルに、
- * 選択されたテーマの配色だけを反映して返す。クライアント側でも使えるよう
+ * skill_es-presentation の3レイアウト（①自己紹介②志望動機③自己PR）と同じ構成の
+ * サンプルに、選択されたテーマの配色だけを反映して返す。クライアント側でも使えるよう
  * ファイル読み込みはせず文字列として持つ。
  */
 export function mockSlidesHtml(theme: SlideTheme): string {

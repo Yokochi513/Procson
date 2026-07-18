@@ -9,8 +9,8 @@ export const dynamic = "force-dynamic";
 
 /**
  * ESの文章と配色テーマから、就活スライド（①自己紹介②志望動機③自己PR）の
- * HTMLを生成して返す。リポジトリの .claude/skills/es-slides/ にある
- * SKILL.md・references・テンプレートをシステムプロンプトとしてそのまま使うため、
+ * HTMLを生成して返す。リポジトリの skill_es-presentation/ にある
+ * SKILL.md・references をシステムプロンプトとしてそのまま使うため、
  * スキルを更新すればこのAPIの挙動も変わる。
  * ANTHROPIC_API_KEY が無ければモックを返す（課金なしで動作確認できる）。
  */
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: "user",
-          content: `以下は就活生のエントリーシートです。スキルの手順（フェーズ2〜3）に従って3枚のスライドを作り、完全なHTMLドキュメントだけを出力してください。\n\n${es}`,
+          content: `以下は就活生のエントリーシートです。スキルの「3種類のレイアウト」とデザインルールに従って3枚のスライドを作り、完全なHTMLドキュメントだけを出力してください。\n\n${es}`,
         },
       ],
     });

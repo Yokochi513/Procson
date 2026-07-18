@@ -361,37 +361,42 @@ def load_diary_skill_prompt(mode: str) -> str:
     return _strip_frontmatter(read_skill_file(skill_name, "SKILL.md")).strip()
 
 
+# ESスライドスキルは .claude/skills/ ではなくリポジトリ直下の
+# skill_es-presentation/ に置かれている。
+_ES_SKILL_DIR_CANDIDATES = [
+    Path(__file__).resolve().parent.parent / "skill_es-presentation",
+    Path.cwd() / "skill_es-presentation",
+]
+
+
+def read_es_skill_file(*relative_parts: str) -> str:
+    """skill_es-presentation/<relative_parts...> を読み込む。"""
+    for base in _ES_SKILL_DIR_CANDIDATES:
+        candidate = base.joinpath(*relative_parts)
+        try:
+            return candidate.read_text(encoding="utf-8")
+        except OSError:
+            continue  # 次の候補を試す
+    raise FileNotFoundError(
+        f"skill file not found: skill_es-presentation/{'/'.join(relative_parts)}"
+    )
+
+
 def build_es_slides_prompt(theme: SlideTheme) -> str:
     """
-    .claude/skills/es-slides/ 一式からシステムプロンプトを組み立てる。
+    skill_es-presentation/ 一式からシステムプロンプトを組み立てる。
     lib/esSlides/skill.ts の buildEsSlidesPrompt と同一内容。
     """
-    skill = read_skill_file("es-slides", "SKILL.md")
-    design_system = read_skill_file("es-slides", "references", "design-system.md")
-    content_guide = read_skill_file("es-slides", "references", "content-guide.md")
-    template = read_skill_file("es-slides", "assets", "slide-template.html")
+    skill = read_es_skill_file("SKILL.md")
+    design = read_es_skill_file("references", "design.md")
 
     return f"""{_strip_frontmatter(skill).strip()}
 
 ---
 
-# references/design-system.md
+# references/design.md
 
-{design_system.strip()}
-
----
-
-# references/content-guide.md
-
-{content_guide.strip()}
-
----
-
-# assets/slide-template.html
-
-```html
-{template.strip()}
-```
+{design.strip()}
 
 ---
 
@@ -399,23 +404,21 @@ def build_es_slides_prompt(theme: SlideTheme) -> str:
 
 あなたはWebアプリのAPIとして1回の応答でスライドHTMLを完成させる。対話はできない。
 
-- **フェーズ1（デザインヒアリング）は実施しない。** 配色は利用者が選択済みで、下記のHEXを使う。
-  slide-template.html の `:root` のCSS変数を、この値でそのまま置き換えること。
-  - --navy: {theme.navy}
-  - --navy-2: {theme.navy2}
-  - --blue: {theme.blue}
-  - --line: {theme.line}
-  - --ink: {theme.ink}
-  - --muted: {theme.muted}
-  - --card: {theme.card}
-  - --card-bd: {theme.cardBd}
-  - --page: {theme.page}
-  - --poly-a: {theme.polyA}
-  - --poly-b: {theme.polyB}
-- **フェーズ4・5（pptx書き出し・整合確認）は実施しない。** 成果物はHTMLのみ。
-- 本文はフェーズ2（content-guide.md）に従い、ユーザーが送るESから作る。事実を創作せず、
+- **「テンプレートの扱い」のヒアリングは実施しない。** 配色は利用者が選択済みで、
+  references/design.md の作例の各役割に下記のHEXをそのまま当てはめる。
+  - メイン（見出し・ヘッダーバー・名刺カード）: {theme.navy}（濃い側 {theme.navy2}）
+  - アクセント（強調文字・数値・効果カード）: {theme.blue}
+  - 本文テキスト: {theme.ink} ／ 補足・添え字: {theme.muted}
+  - 背景: {theme.page} ／ カード背景: {theme.card}
+  - カード枠: {theme.cardBd} ／ 区切り線: {theme.line}
+  - 背景のローポリ装飾: {theme.polyA}・{theme.polyB}
+- **HTMLプレビュー確認の対話・テキストサイズの問いかけ・.pptx への書き出し・目視QAは実施しない。**
+  成果物はHTMLのみ。
+- 本文はユーザーが送るESから「3種類のレイアウト」に従って作る。事実を創作せず、
   ESに無い固有情報（大学名・氏名等）は「○○大学」「氏名」等のプレースホルダのまま残す。
-- 出力は **slide-template.html と同じ構造の完全なHTMLドキュメントのみ**。
+- 3枚のスライド（①自己紹介 ②志望動機 ③自己PR）は、16:9（1280×720px）の枠を縦に並べた
+  1つのHTMLにまとめる。文字サイズ・余白は references/design.md の作例に従い、本文は18px以上。
+- 出力は **完全なHTMLドキュメントのみ**。
   `<!doctype html><html lang="ja"><head><meta charset="utf-8"><title>就活スライド</title><style>…</style></head><body>…</body></html>` の形にする。
   説明文・前置き・Markdownのコードフェンスは一切付けない。1文字目から `<!doctype html>` で始めること。"""
 
@@ -684,8 +687,8 @@ def es_slides(body: EsSlidesRequest) -> JSONResponse:
                 {
                     "role": "user",
                     "content": (
-                        "以下は就活生のエントリーシートです。スキルの手順（フェーズ2〜3）に"
-                        "従って3枚のスライドを作り、完全なHTMLドキュメントだけを出力してください。\n\n"
+                        "以下は就活生のエントリーシートです。スキルの「3種類のレイアウト」と"
+                        "デザインルールに従って3枚のスライドを作り、完全なHTMLドキュメントだけを出力してください。\n\n"
                         f"{body.es}"
                     ),
                 }
