@@ -20,7 +20,7 @@ export function Header() {
 
       <div className="bg-[#0e2149] border-b-4 border-[#ff7a1a]">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/home" className="flex items-center gap-2">
             <span className="w-9 h-9 rounded-md bg-[#ff7a1a] text-white font-black flex items-center justify-center">
               N
             </span>
