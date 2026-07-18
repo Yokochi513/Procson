@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>就活スライド プレビュー（ティール）｜山田太郎</title>
+<style>
+  :root{
+    --teal:#178F86; --teal-dark:#0F6B64; --teal-deep:#0B4F4A;
+    --tint:#E6F4F2; --tint2:#D2E9E6; --ink:#1E2A28; --charcoal:#26302F;
+    --text:#3D4744; --muted:#8A9794; --border:#E1EAE8; --bg-page:#e7ecec;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:"Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif;background:var(--bg-page);color:var(--text);padding:40px 20px 80px;-webkit-font-smoothing:antialiased;}
+  .toolbar{max-width:1280px;margin:0 auto 28px;text-align:center;color:#41504d;}
+  .toolbar h1{font-size:22px;color:var(--teal);margin-bottom:6px;}
+  .toolbar p{font-size:15px;}
+  .slide-label{max-width:1280px;margin:36px auto 10px;font-size:15px;color:#5f6f6c;font-weight:bold;}
+  .slide{position:relative;width:1280px;max-width:100%;aspect-ratio:16/9;margin:0 auto;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 10px 30px rgba(20,60,56,.16);}
+  .slide-inner{position:relative;z-index:2;height:100%;padding:44px 60px 46px;display:flex;flex-direction:column;}
+  /* 左上の斜めアクセント */
+  .corner{position:absolute;top:0;left:0;width:150px;height:150px;z-index:1;background:var(--teal);clip-path:polygon(0 0,100% 0,0 100%);opacity:.12;}
+  /* 見出し（ブラック文字＋横ライン＋右上の番号サークル） */
+  .head{display:flex;align-items:center;gap:22px;}
+  .head .htext h2{font-size:32px;color:var(--ink);font-weight:800;letter-spacing:.02em;line-height:1.1;}
+  .head .htext .sub{font-size:14px;color:var(--muted);font-weight:700;letter-spacing:.24em;}
+  .head .hbar{flex:1;height:4px;background:var(--ink);border-radius:2px;}
+  .head .hnum{flex:0 0 auto;width:58px;height:58px;border-radius:50%;background:var(--teal);color:#fff;font-size:22px;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px rgba(15,107,100,.3);}
+
+  /* ① 自己紹介 */
+  .intro-body{flex:1;display:flex;gap:44px;padding-top:30px;}
+  .intro-left{flex:0 0 372px;display:flex;flex-direction:column;}
+  .name-card{position:relative;overflow:hidden;background:var(--teal);color:#fff;border-radius:14px;padding:32px 30px;box-shadow:0 12px 26px rgba(15,107,100,.26);}
+  .name-card .ring{position:absolute;width:96px;height:96px;border-radius:50%;border:6px solid rgba(255,255,255,.28);right:22px;top:26px;}
+  .name-card .diag{position:absolute;right:0;bottom:0;width:120px;height:120px;background:var(--teal-deep);clip-path:polygon(100% 0,100% 100%,0 100%);opacity:.55;}
+  .name-card .univ,.name-card .dept{position:relative;font-size:19px;line-height:1.7;opacity:.96;}
+  .name-card .dept{margin-bottom:16px;}
+  .name-card .name-label{position:relative;font-size:18px;opacity:.82;letter-spacing:.3em;margin-bottom:4px;}
+  .name-card .name{position:relative;font-size:44px;font-weight:800;letter-spacing:.06em;}
+  .name-card .name .ruby{display:block;font-size:18px;font-weight:400;opacity:.85;letter-spacing:.2em;margin-top:6px;}
+  .tags{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;}
+  .tag{background:var(--tint);color:var(--teal-dark);border:1px solid var(--tint2);border-radius:20px;padding:8px 16px;font-size:18px;font-weight:700;}
+  .intro-right{flex:1;display:flex;flex-direction:column;justify-content:center;gap:24px;}
+  .info-row{display:flex;align-items:flex-start;gap:20px;}
+  .info-row .hex{flex:0 0 auto;width:56px;height:56px;background:var(--teal);color:#fff;font-size:19px;font-weight:800;display:flex;align-items:center;justify-content:center;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);}
+  .info-row .txt .h{font-size:19px;font-weight:800;color:var(--ink);margin-bottom:5px;}
+  .info-row .txt p{font-size:19px;line-height:1.7;color:var(--text);}
+  .info-row .txt .em{color:var(--teal);font-weight:800;font-size:21px;}
+
+  /* ② 志望動機 */
+  .center-lead{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding-bottom:10px;}
+  .lead-eyebrow{font-size:20px;color:var(--teal);font-weight:800;letter-spacing:.16em;margin-bottom:28px;}
+  .lead-oneline{font-size:44px;font-weight:800;color:var(--ink);line-height:1.5;max-width:1050px;}
+  .lead-oneline .hl{color:var(--teal);}
+  .lead-note{position:relative;overflow:hidden;margin-top:42px;background:var(--teal);color:#fff;border-radius:12px;padding:24px 40px;max-width:880px;box-shadow:0 10px 24px rgba(15,107,100,.24);}
+  .lead-note .diag{position:absolute;right:0;top:0;width:120px;height:120px;background:var(--teal-deep);clip-path:polygon(100% 0,100% 100%,100% 0,0 0);opacity:.5;}
+  .lead-note .cap{position:relative;font-size:18px;opacity:.9;font-weight:800;margin-bottom:8px;letter-spacing:.1em;}
+  .lead-note p{position:relative;font-size:22px;line-height:1.65;font-weight:700;}
+
+  /* ③ 自己PR */
+  .pr-body{flex:1;display:flex;flex-direction:column;padding-top:30px;gap:28px;}
+  .pr-strength{position:relative;overflow:hidden;background:var(--charcoal);color:#fff;border-radius:14px;padding:32px 44px;text-align:center;box-shadow:0 12px 26px rgba(20,30,28,.24);}
+  .pr-strength .diag{position:absolute;left:0;top:0;width:150px;height:100%;background:var(--teal);clip-path:polygon(0 0,100% 0,0 100%);opacity:.9;}
+  .pr-strength .diag2{position:absolute;right:0;bottom:0;width:120px;height:120px;background:var(--teal);clip-path:polygon(100% 0,100% 100%,0 100%);opacity:.25;}
+  .pr-strength .cap{position:relative;font-size:18px;opacity:.85;letter-spacing:.2em;margin-bottom:12px;}
+  .pr-strength .txt{position:relative;font-size:36px;font-weight:800;line-height:1.4;}
+  .pr-strength .quote{color:#7fd8d1;}
+  .pr-cols{display:flex;gap:28px;flex:1;}
+  .pr-card{flex:1;background:#fff;border:1.5px solid var(--border);border-radius:12px;padding:26px 30px;box-shadow:0 6px 16px rgba(20,60,56,.07);display:flex;flex-direction:column;gap:14px;}
+  .pr-card .chead{display:flex;align-items:center;gap:14px;}
+  .pr-card .ico{width:50px;height:50px;background:var(--teal);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;clip-path:polygon(25% 0,75% 0,100% 50%,75% 100%,25% 100%,0 50%);flex:0 0 auto;}
+  .pr-card.effect .ico{background:var(--charcoal);}
+  .pr-card .chead .t{font-size:20px;font-weight:800;color:var(--ink);}
+  .pr-card .body{flex:1;display:flex;align-items:center;}
+  .pr-card .body p{font-size:21px;line-height:1.7;color:var(--text);font-weight:700;}
+  .pr-card .body .em{color:var(--teal);font-weight:800;font-size:23px;}
+
+  .pagenum{position:absolute;right:26px;bottom:18px;z-index:3;font-size:16px;color:#a7b6b3;font-weight:800;}
+  @media (max-width:820px){.slide-inner{padding:26px 24px;}.head .htext h2{font-size:24px;}.intro-body{flex-direction:column;gap:22px;}.intro-left{flex:none;}.pr-cols{flex-direction:column;}.lead-oneline{font-size:30px;}}
+</style>
+</head>
+<body>
+<div class="toolbar">
+  <h1>就活スライド プレビュー（ティール・テンプレート版）</h1>
+  <p>ES に基づく3種類のレイアウト（① 自己紹介／② 志望動機／③ 自己PR）｜山田 太郎さん</p>
+</div>
+
+<!-- ① 自己紹介 -->
+<div class="slide-label">① 自己紹介</div>
+<div class="slide">
+  <div class="corner"></div>
+  <div class="slide-inner">
+    <div class="head">
+      <div class="htext"><h2>自己紹介</h2><span class="sub">ABOUT ME</span></div>
+      <div class="hbar"></div><div class="hnum">01</div>
+    </div>
+    <div class="intro-body">
+      <div class="intro-left">
+        <div class="name-card">
+          <div class="ring"></div><div class="diag"></div>
+          <div class="univ">◯◯大学　経済学部</div>
+          <div class="dept">経営学科（202X年卒予定）</div>
+          <div class="name-label">NAME</div>
+          <div class="name">山田 太郎<span class="ruby">YAMADA　TARO</span></div>
+        </div>
+        <div class="tags">
+          <span class="tag"># 経営学科</span>
+          <span class="tag"># Webマーケサークル</span>
+          <span class="tag"># 企画営業・PM志望</span>
+        </div>
+      </div>
+      <div class="intro-right">
+        <div class="info-row">
+          <div class="hex">01</div>
+          <div class="txt"><div class="h">専攻・学び</div><p>経営学科で<span class="em">マーケティングと経営</span>を学び、ビジネスを俯瞰する視点を養成。</p></div>
+        </div>
+        <div class="info-row">
+          <div class="hex">02</div>
+          <div class="txt"><div class="h">関心を持ったきっかけ</div><p>インターンで中小企業の業務の煩雑さに触れ、<span class="em">DXの必要性</span>を痛感。</p></div>
+        </div>
+        <div class="info-row">
+          <div class="hex">03</div>
+          <div class="txt"><div class="h">力を入れていること</div><p>Webマーケサークルで飲食店のSNS集客を支援し、<span class="em">来店数を前年比150%</span>に。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">01</div>
+</div>
+
+<!-- ② 志望動機 -->
+<div class="slide-label">② 志望動機</div>
+<div class="slide">
+  <div class="corner"></div>
+  <div class="slide-inner">
+    <div class="head">
+      <div class="htext"><h2>志望動機</h2><span class="sub">MOTIVATION</span></div>
+      <div class="hbar"></div><div class="hnum">02</div>
+    </div>
+    <div class="center-lead">
+      <div class="lead-eyebrow">MY MOTIVATION</div>
+      <div class="lead-oneline">
+        業務の効率化を通じて、<br>人が<span class="hl">創造的な仕事に集中できる社会</span>へ。
+      </div>
+      <div class="lead-note">
+        <div class="diag"></div>
+        <div class="cap">── 補足</div>
+        <p>DX支援の実績と革新的なソリューションに共感したため。</p>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">02</div>
+</div>
+
+<!-- ③ 自己PR -->
+<div class="slide-label">③ 自己PR</div>
+<div class="slide">
+  <div class="corner"></div>
+  <div class="slide-inner">
+    <div class="head">
+      <div class="htext"><h2>自己PR</h2><span class="sub">STRENGTH</span></div>
+      <div class="hbar"></div><div class="hnum">03</div>
+    </div>
+    <div class="pr-body">
+      <div class="pr-strength">
+        <div class="diag"></div><div class="diag2"></div>
+        <div class="cap">MY STRENGTH ── 私の強み</div>
+        <div class="txt"><span class="quote">「</span>課題の本質を見極め、粘り強く解決に向けて行動する力<span class="quote">」</span></div>
+      </div>
+      <div class="pr-cols">
+        <div class="pr-card">
+          <div class="chead"><span class="ico">◎</span><span class="t">根拠となる経験</span></div>
+          <div class="body"><p>カフェの新人離職率を、<span class="em">40%→10%以下</span>に改善。</p></div>
+        </div>
+        <div class="pr-card effect">
+          <div class="chead"><span class="ico">➜</span><span class="t">入社後の活かし方</span></div>
+          <div class="body"><p>課題に<span class="em">多角的に迫り</span>、泥臭く実行して貢献。</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pagenum">03</div>
+</div>
+
+</body>
+</html>
